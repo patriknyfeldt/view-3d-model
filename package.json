@@ -4,8 +4,8 @@
   "description": "3d model viewer using Three.js, including ready to use components for React and vue.js",
   "main": "index.js",
   "directories": {
-    "react": "react",
-    "vue": "vue"
+    "vue": "vue",
+    "scripts": "scripts"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -24,7 +24,10 @@
   },
   "homepage": "https://github.com/patriknyfeldt/view-3d-model#readme",
   "dependencies": {
-    "react": "^18.2.0",
+    "three": "^0.150.1",
+    "vue": "^3.2.47"
+  },
+  "peerDependencies": {
     "three": "^0.150.1",
     "vue": "^3.2.47"
   }
