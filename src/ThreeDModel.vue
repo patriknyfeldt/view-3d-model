@@ -1,5 +1,7 @@
 <template>
-  <div @click="handleClick" id="model-wrapper"></div>
+  <div @click="handleClick" id="model-wrapper">
+    <div v-if="loading">laddar</div>
+  </div>
 </template>
 
 <script>
@@ -25,19 +27,52 @@ export default {
       type: Boolean,
       default: true,
     },
+    // Illuminates the scene equally, without direction, set intensity and color to adjust the light
+    ambientLighting: {
+      type: Object,
+      default: () => ({
+        intensity: 0.5,
+        color: "#FFFFFF",
+      }),
+    },
+    // A light in a specific direction, used to simulate daylight
+    // Default position is x:0, y:1, z:0 meaning that the light shines from the top down.
+    // Set intensity, color, and position to adjust the light
+    directionalLighting: {
+      type: Object,
+      default: () => ({
+        intensity: 0.1,
+        color: "#FFFFFF",
+        position: {
+          x: 0,
+          y: 1,
+          z: 0,
+        },
+      }),
+    },
   },
   data: () => ({
+    defaultSettings: {},
+    // Camera frustum vertical field of view, from bottom to top, set in degrees
     fov: 60,
+    // Camera frustum near plane
     near: 0.1,
+    // Camera frustum far plane
     far: 1000,
-    canvasId: "model",
-    wrapperId: "model-wrapper",
+    // Container dimensions. Will be updated on window.resize
     containerDimensions: {
       width: 0,
       height: 0,
     },
+    loading: true,
   }),
   computed: {
+    ambientLightingDefault() {
+      return this.$options.props.ambientLighting.default();
+    },
+    directionalLightingDefault() {
+      return this.$options.props.directionalLighting.default();
+    },
     height() {
       // return window.getComputedStyle(this.$el).height;
       return this.$el.clientHeight;
@@ -48,32 +83,36 @@ export default {
     },
   },
   watch: {
+    // Watches container dimensions and calls 'updateCameraAndRenderer' whenever changes (changes when window resizes)
     containerDimensions(val) {
-      console.log(val);
+      if (val) {
+        this.updateCameraAndRenderer(val);
+      }
     },
   },
   mounted() {
-    // console.log("log-- height", this.height);
-    // console.log("log-- width", this.width);
     if (this.filePath) {
-      // const scene = new SceneInit(this.canvasId, this.wrapperId);
-      this.gltfLoader = new GLTFLoader();
-      this.dracoLoader = new DRACOLoader();
+      this.createGltfLoader();
 
-      this.gltfLoader.setCrossOrigin("anonymous");
-      this.dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
-      this.gltfLoader.setDRACOLoader(this.dracoLoader);
       this.gltfLoader.load(
         `${this.filePath}`,
         (gltf) => {
-          this.loadedModel = gltf;
+          console.log("log-- gltf scenes", gltf);
+          this.loading = false;
+          // gltf.scene.traverse((child) => {
+          //   console.log("log-- child", child);
+          //   if (child.isMesh) {
+          //     const material = child.material;
+          //     console.log("log-- material", material);
+          //   }
+          // });
+
           this.gltfScene = gltf.scene;
           const box = new THREE.Box3().setFromObject(this.gltfScene);
           const size = box.getSize(new THREE.Vector3()).length();
-          console.log("log-- size", size);
           const center = box.getCenter(new THREE.Vector3());
           this.initialize();
-
+          this.setLights();
           this.scene.add(this.gltfScene);
           this.animate();
           this.setCamera(size, center);
@@ -82,57 +121,86 @@ export default {
           this.autoRotate && this.rotate();
         },
         (xhr) => {
-          console.log("log-- ", xhr);
+          console.log(
+            `Loading model: ${(xhr.loaded / xhr.total) * 100}% loaded`
+          );
         },
         (error) => {
-          console.log("log-- an error occured", error);
+          console.log("An error occured", error);
         }
       );
     }
   },
   beforeUnmount() {},
   methods: {
-    loadGltf() {},
+    // Creating gltfLoader and dracoLoader which is used if gltf is compressed with draco
+    createGltfLoader() {
+      this.gltfLoader = new GLTFLoader();
+      this.dracoLoader = new DRACOLoader();
+      this.gltfLoader.setCrossOrigin("anonymous");
+      this.dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
+      this.gltfLoader.setDRACOLoader(this.dracoLoader);
+    },
+    // Creating a scene, camera and renders to components root element (this.$el)
     initialize() {
       this.scene = new THREE.Scene();
       this.camera = new THREE.PerspectiveCamera(
         this.fov,
         this.width / this.height,
-        0.1,
-        1000
+        this.near,
+        this.far
       );
-      // const canvas = document.getElementById(this.canvasId);
       const container = this.$el;
-      // const container = document.getElementById("model-wrapper");
-      // console.log("log-- canvas", canvas);
-      // console.log("log-- el", this.$el);
       this.renderer = new THREE.WebGLRenderer({
         container,
         antialias: true,
         alpha: true,
       });
-      // console.log("log-- renderer", this.renderer.state);
-      console.log("log-- devicePixelratio", window.devicePixelRatio);
+
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(this.width, this.height);
-      // const wrapper = document.getElementById(this.wrapperId);
-      // const wrapper = this.$el;
+      this.renderer.outputEncoding = THREE.sRGBEncoding;
       this.$el.appendChild(this.renderer.domElement);
-
-      // this.orbitControls = new OrbitControls(
-      //   this.camera,
-      //   this.renderer.domElement
-      // );
-      this.ambientLight = new THREE.AmbientLight(0xffffff, 0.1);
-      this.ambientLight.castShadow = true;
-      this.scene.add(this.ambientLight);
-
-      this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-      this.directionalLight.position.set(45, 45, 45);
-      this.scene.add(this.directionalLight);
 
       window.addEventListener("resize", () => this.onWindowResize(), false);
     },
+    // Adding lights to the scene, using values from props 'ambientLighting' and 'directionalLigthing'
+    setLights() {
+      console.log("log-- position", this.ambientLighting);
+
+      this.ambientLight = new THREE.AmbientLight(
+        this.ambientLighting?.color ?? this.ambientLightingDefault.color,
+
+        this.ambientLighting?.intensity ?? this.ambientLightingDefault.intensity
+      );
+      this.scene.add(this.ambientLight);
+
+      this.directionalLight = new THREE.DirectionalLight(
+        this.directionalLighting?.color ??
+          this.directionalLightingDefault.color,
+
+        this.directionalLighting?.intensity ??
+          this.directionalLightingDefault.intensity
+      );
+      console.log("log-- directional", this.directionalLighting);
+
+      console.log("log-- default directional", this.directionalLightingDefault);
+      this.directionalLight.position.set(
+        this.directionalLighting?.position?.x ??
+          this.directionalLightingDefault.position.x,
+
+        this.directionalLighting?.position?.y ??
+          this.directionalLightingDefault.position.y,
+
+        this.directionalLighting?.position?.z ??
+          this.directionalLightingDefault.position.z
+      );
+      // const helper = new THREE.DirectionalLightHelper(this.directionalLight, 5);
+      // this.scene.add(helper);
+
+      this.scene.add(this.directionalLight);
+    },
+    // Adds an environment to the scene, to provide even light
     setEnvironment() {
       this.pmremGenerator = new THREE.PMREMGenerator(this.renderer);
       this.pmremGenerator.compileEquirectangularShader();
@@ -142,6 +210,7 @@ export default {
 
       this.scene.environment = this.environment;
     },
+    // Adds orbit controls to be able to interact with the model
     setControls(size) {
       this.orbitControls = new OrbitControls(
         this.camera,
@@ -149,6 +218,7 @@ export default {
       );
       this.orbitControls.maxDistance = size * 10;
     },
+    // Sets the camera position and point at center of the scene
     setCamera(size, center) {
       this.camera.near = size / 100;
       this.camera.far = size * 100;
@@ -159,17 +229,20 @@ export default {
       this.camera.position.z += size / 1.5;
       this.camera.lookAt(center);
     },
-    rotate(x, y, z) {
+    // Adds rotation to the scene on chosen axis
+    rotate() {
       // this.scene.rotation.x += 0.01;
       this.scene.rotation.y += 0.01;
       // this.scene.rotation.z += 0.01;
-      requestAnimationFrame(this.rotate.bind(this));
+      requestAnimationFrame(this.rotate);
     },
     handleClick() {
+      console.log("log-- domElement", this.renderer);
       this.$emit("clicked", "hej från 3d model viewer");
     },
+    // Adds animation loop
     animate() {
-      this.animationId = window.requestAnimationFrame(this.animate);
+      window.requestAnimationFrame(this.animate);
       this.render();
       if (this.orbitControls) {
         this.orbitControls.update();
@@ -178,47 +251,22 @@ export default {
     render() {
       this.renderer.render(this.scene, this.camera);
     },
-    onWindowResize() {
-      const container = this.$el;
-      console.log(
-        "log-- container computed style height",
-        window.getComputedStyle(container).height
-      );
-      console.log(
-        "log-- container computed style width",
-        window.getComputedStyle(container).width
-      );
-      // const width = this.$el.clientWidth;
-      // const height = this.$el.clientHeight;
-      // const width = window.getComputedStyle(container).width;
-      // const height = window.getComputedStyle(container).height;
-      // this.camera.aspect =
-      //   window.getComputedStyle(container).width /
-      //   window.getComputedStyle(container).height;
-      // this.camera.updateProjectionMatrix();
-      // this.renderer.setSize(
-      //   window.getComputedStyle(container).width /
-      //     window.getComputedStyle(container).height
-      // );
-      const element = this.$el;
-      console.log(element);
-      const computedStyle = window.getComputedStyle(element);
-      console.log("log-- computedStyle", computedStyle);
-      const { width, height } = computedStyle;
-      this.containerDimensions = {
-        width: parseFloat(width),
-        height: parseFloat(height),
-      };
-      console.log("log-- width", this.containerDimensions.width);
-      console.log("log-- height", this.containerDimensions.height);
-
-      this.camera.aspect =
-        this.containerDimensions.width / this.containerDimensions.height;
+    // Updates camera aspect ratio
+    updateCameraAndRenderer(dimensions) {
+      const { width, height } = dimensions;
+      this.camera.aspect = width / height;
       this.camera.updateProjectionMatrix();
-      this.renderer.setSize(
-        this.containerDimensions.width,
-        this.containerDimensions.height
-      );
+      this.renderer.setSize(width, height);
+    },
+    // Updates container dimensions when resizing window
+    onWindowResize() {
+      const element = this.$el;
+      if (element.clientWidth !== 0 && element.clientHeight !== 0) {
+        this.containerDimensions = {
+          width: element.clientWidth,
+          height: element.clientHeight,
+        };
+      }
     },
   },
 };
