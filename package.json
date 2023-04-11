@@ -1,43 +1,41 @@
 {
   "name": "view-3d-model",
+  "description": "A Vue.js component using three.js to view 3d-models.",
   "version": "1.0.0",
-  "description": "Ready to use Vue.js component to render 3d-model",
+  "author": "Patrik Nyfeldt",
+  "license": "ISC",
   "main": "src/index.js",
-  "directories": {
-    "vue": "vue",
-    "scripts": "scripts"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production"
-  },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/patriknyfeldt/view-3d-model.git"
   },
+  "homepage": "https://github.com/patriknyfeldt/view-3d-model#readme",
   "keywords": [
-    "view-3d-model"
+    "vue",
+    "three.js",
+    "gltf"
   ],
-  "author": "Patrik Nyfeldt",
-  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "bugs": {
     "url": "https://github.com/patriknyfeldt/view-3d-model/issues"
   },
-  "homepage": "https://github.com/patriknyfeldt/view-3d-model#readme",
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "dependencies": {
+    "lil-gui": "^0.18.1",
     "three": "^0.150.1",
-    "vue": "^3.2.47"
+    "vue": "^3.2.39"
   },
+  "devDependencies": {},
   "peerDependencies": {
+    "lil-gui": "^0.18.1",
     "three": "^0.150.1",
-    "vue": "^3.2.47"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.21.4",
-    "babel-loader": "^9.1.2",
-    "vue-loader": "^17.0.1",
-    "vue-template-compiler": "^2.7.14",
-    "webpack": "^5.77.0",
-    "webpack-cli": "^5.0.1"
+    "vue": "^3.2.39"
   }
 }
