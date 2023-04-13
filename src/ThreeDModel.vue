@@ -1,16 +1,33 @@
 <template>
-  <div id="model-wrapper">
-    <div v-if="loading">loading</div>
+  <div v-if="!failedToLoad" class="model-wrapper">
+    <div v-if="loading" class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
   </div>
 </template>
 
 <script>
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { GUI } from "lil-gui";
+// import * as THREE from "three";
+import {
+  Scene as Scene,
+  PerspectiveCamera as PerspectiveCamera,
+  WebGLRenderer as WebGLRenderer,
+  sRGBEncoding as sRGBEncoding,
+  LinearToneMapping as LinearToneMapping,
+  Box3 as Box3,
+  Vector3 as Vector3,
+  AmbientLight as AmbientLight,
+  DirectionalLight as DirectionalLight,
+  PMREMGenerator as PMREMGenerator,
+  REVISION as REVISION,
+} from "three";
+import { GLTFLoader as GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { DRACOLoader as DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
+import { OrbitControls as OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { RoomEnvironment as RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { GUI as GUI } from "lil-gui";
 
 export default {
   name: "ThreeDModel",
@@ -67,6 +84,8 @@ export default {
     },
     // loading is set to true until model is loaded
     loading: true,
+    // failedtoLoad is set to true if error when loading model
+    failedToLoad: false,
   }),
   computed: {
     // Returns The default settings from prop 'customSettings'. Will be used if no value provided in 'customSettings'
@@ -138,83 +157,95 @@ export default {
     },
   },
   mounted() {
-    console.log("this.$el", this.$el);
-    // console.log("log-- defaultSettings", this.defaultSettings);
-    // console.log("log-- dSettings", this.dSettings);
     this.initialize();
     this.setLights();
     this.animate();
     this.setEnvironment();
     this.createGltfLoader();
-
     if (this.filePath) {
       this.gltfLoader.load(
         `${this.filePath}`,
         (gltf) => {
+          // Setting this.model to gltf scene
           this.model = gltf.scene || gltf.scenes[0];
-
+          // Get size and center from method/getSizeAndCenter
           const { size, center } = this.getCenterAndSize();
-
+          // methods/centerModel
           this.centerModel(center);
+          // methods/setCamera
           this.setCamera(size, center);
+          // methods/setcontrols
           this.setControls(size);
+          // methods/setRotations
           this.setRotation();
+          // Adding model to the scene
           this.scene.add(this.model);
+          // Set loading to false
           this.loading = false;
-
+          console.log(`[view-3d-model] Model loaded`);
+          // Create editor if useEditor is set to true
           this.useEditor && this.createEditor();
         },
-        (xhr) => {
-          console.log(
-            `Loading model: ${(xhr.loaded / xhr.total) * 100}% loaded`
-          );
+        // Being executed when loading model
+        () => {
+          console.log(`[view-3d-model] Loading model`);
         },
+        // Setting failedToLoad if error when loading
         (error) => {
-          console.log("An error occured", error);
+          this.loading = false;
+          this.failedToLoad = true;
+          console.log(
+            `[view-3d-model] An error occured when loading asset. ${error}`
+          );
         }
       );
     }
   },
   beforeDestroy() {
-    console.log("unmounting");
+    // Destroy gui before destroy (Vue2)
     if (this.gui) {
       this.gui.destroy();
     }
   },
   beforeUnmount() {
+    // Destroy gui before unmount (Vue3)
     if (this.gui) {
       this.gui.destroy();
     }
   },
   methods: {
-    // Creating gltfLoader and dracoLoader which is used if gltf is compressed with draco
+    // Creating gltfLoader
+    // Creating dracoLoader which is used if gltf is compressed with draco
+
     createGltfLoader() {
       this.gltfLoader = new GLTFLoader();
-      this.dracoLoader = new DRACOLoader();
       this.gltfLoader.setCrossOrigin("anonymous");
-      this.dracoLoader.setDecoderPath("/examples/jsm/libs/draco/");
+      this.dracoLoader = new DRACOLoader();
+      this.dracoLoader.setDecoderPath(
+        `https://unpkg.com/three@0.${REVISION}.x/examples/jsm/libs/draco/gltf/`
+      );
       this.gltfLoader.setDRACOLoader(this.dracoLoader);
     },
 
     // Creating scene, camera and renderer
     initialize() {
-      this.scene = new THREE.Scene();
-      this.camera = new THREE.PerspectiveCamera(
+      this.scene = new Scene();
+      this.camera = new PerspectiveCamera(
         this.fov,
         this.$el.clientWidth / this.$el.clientHeight,
         this.near,
         this.far
       );
       const container = this.$el;
-      this.renderer = new THREE.WebGLRenderer({
+      this.renderer = new WebGLRenderer({
         container,
         antialias: true,
         alpha: true,
       });
       this.renderer.setPixelRatio(window.devicePixelRatio);
       this.renderer.setSize(this.$el.clientWidth, this.$el.clientHeight);
-      this.renderer.outputEncoding = THREE.sRGBEncoding;
-      this.renderer.toneMapping = THREE.LinearToneMapping;
+      this.renderer.outputEncoding = sRGBEncoding;
+      this.renderer.toneMapping = LinearToneMapping;
       this.$el.appendChild(this.renderer.domElement);
 
       window.addEventListener("resize", () => this.onWindowResize(), false);
@@ -222,9 +253,9 @@ export default {
 
     // Creating a bounding box from model and returns the size and center
     getCenterAndSize() {
-      const box = new THREE.Box3().setFromObject(this.model);
-      const size = box.getSize(new THREE.Vector3()).length();
-      const center = box.getCenter(new THREE.Vector3());
+      const box = new Box3().setFromObject(this.model);
+      const size = box.getSize(new Vector3()).length();
+      const center = box.getCenter(new Vector3());
       return { size, center };
     },
 
@@ -232,23 +263,24 @@ export default {
     // Using values from props 'ambientLighting' and 'directionalLigthing'
     setLights() {
       // Setting ambient light color and intensity
-      this.ambientLight = new THREE.AmbientLight(
+      this.ambientLight = new AmbientLight(
         this.ambientLighting?.color,
         this.ambientLighting?.intensity
       );
       this.scene.add(this.ambientLight);
 
       // Setting directional light color and intensity
-      this.directionalLight = new THREE.DirectionalLight(
+      this.directionalLight = new DirectionalLight(
         this.directionalLighting?.color,
         this.directionalLighting?.intensity
       );
 
       this.scene.add(this.directionalLight);
     },
-    // Adding an environment to the scene, to provide even light
+
+    // Adding an environment to the scene, to provide an even lighting to the scene
     setEnvironment() {
-      this.pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+      this.pmremGenerator = new PMREMGenerator(this.renderer);
       this.pmremGenerator.compileEquirectangularShader();
       this.environment = this.pmremGenerator.fromScene(
         new RoomEnvironment()
@@ -280,13 +312,13 @@ export default {
       this.model.position.z += this.model.position.z - center.z;
     },
 
-    // Setting the camera position and point at center of the scene
+    // Setting the camera position
     setCamera(size, center) {
       this.camera.near = size / 100;
       this.camera.far = size * 100;
       this.updateCamera();
 
-      // Using camera position values if provided
+      // Using camera position values if provided in customSettings
       if (
         this.cameraPosition.x &&
         this.cameraPosition.y &&
@@ -303,6 +335,7 @@ export default {
         this.camera.position.y += size / 3;
         this.camera.position.z += size / 1.5;
       }
+      // Point camera at center of the scene
       this.camera.lookAt(center);
     },
 
@@ -406,7 +439,7 @@ export default {
       // Ambient light folder
       const ambientLightFolder = lightsFolder.addFolder("Ambient Light");
       // Intensity
-      ambientLightFolder.add(this.ambientLight, "intensity", 0, 10);
+      ambientLightFolder.add(this.ambientLight, "intensity", 0, 100);
       // Color
       ambientLightFolder.addColor(this.ambientLight, "color");
 
@@ -438,4 +471,62 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style>
+.model-wrapper {
+  position: relative;
+}
+.loader {
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+
+.loader div {
+  background-color: white;
+  mix-blend-mode: difference;
+  position: absolute;
+  opacity: 1;
+  border-radius: 50%;
+  animation: loading-spinner 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.loader div:nth-child(2) {
+  animation-delay: -0.4s;
+}
+.loader div:nth-child(3) {
+  animation-delay: -0.8s;
+}
+
+@keyframes loading-spinner {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    left: 0px;
+    width: 72px;
+    height: 72px;
+    opacity: 0;
+  }
+}
+</style>

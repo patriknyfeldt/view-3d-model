@@ -1,7 +1,7 @@
 {
   "name": "view-3d-model",
   "description": "A Vue.js component using three.js to view 3d-models.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Patrik Nyfeldt",
   "license": "ISC",
   "main": "src/index.js",
@@ -32,7 +32,6 @@
     "three": "^0.150.1",
     "vue": "^3.2.39"
   },
-  "devDependencies": {},
   "peerDependencies": {
     "lil-gui": "^0.18.1",
     "three": "^0.150.1",
