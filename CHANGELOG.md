@@ -1,3 +1,15 @@
+## [1.0.4] - 2023-04-15
+
+### Fixed
+
+- Update package.json
+
+## [1.0.3] - 2023-04-15
+
+### Fixed
+
+- Issues with missing files
+
 ## [1.0.2] - 2023-04-15
 
 ### Added
