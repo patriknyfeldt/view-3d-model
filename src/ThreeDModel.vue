@@ -20,6 +20,7 @@ import {
   Vector3 as Vector3,
   AmbientLight as AmbientLight,
   DirectionalLight as DirectionalLight,
+  Color as Color,
   PMREMGenerator as PMREMGenerator,
   REVISION as REVISION,
 } from "three";
@@ -28,24 +29,28 @@ import { DRACOLoader as DRACOLoader } from "three/examples/jsm/loaders/DRACOLoad
 import { OrbitControls as OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { RoomEnvironment as RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { GUI as GUI } from "lil-gui";
+import log from "./utils.js";
 
 export default {
   name: "ThreeDModel",
   props: {
+    // Path to model
     filePath: {
       type: String,
       required: true,
     },
+    // If set to true, an editor will be created to help adjust settings
     useEditor: {
       type: Boolean,
       default: false,
     },
+    // An object with settings to control camera, lighting, orbit controls and rotation
     customSettings: {
       type: Object,
       default: () => ({
         // Field of view, defines the extent of the scene that is seen on the display. Set in degrees, defaults to 50.
         fov: 50,
-        // Camera position, will be used if x, y and z is provided. Else it will be ignored
+        // Camera position, will be used if x, y and z is provided. Else it will be ignored and default settings will be used
         cameraPosition: {
           x: null,
           y: null,
@@ -70,6 +75,113 @@ export default {
         // The rotation speed if autoRotate is set to true, defaults to 2
         rotationSpeed: 2,
       }),
+      validator: (value) => {
+        // validating fov value is type 'Number' and between 1 and 180
+        const fov = value?.fov;
+
+        if ((fov && typeof fov !== "number") || fov < 1 || fov > 180) {
+          log.warn(
+            "Invalid fov value in prop customSettings/fov. Should be type 'Number' between 1 and 180."
+          );
+          return false;
+        }
+
+        // Validating cameraPosition values
+        const x = value?.cameraPosition?.x ?? null;
+        const y = value?.cameraPosition?.y ?? null;
+        const z = value?.cameraPosition?.z ?? null;
+        // If some of the values x, y, z is declared but not all of them, default settings will be used.
+        if ((x || y || z) && (!x || !y || !z)) {
+          log.warn(
+            `Looks like some of values x, y, z is declared in prop customSettings/cameraPosition. Please note that if not all values x, y, z is provided default camera settings will be used.`
+          );
+        }
+        // Validating cameraPosition values are type 'Number' and between -50 and 50
+        if (
+          (x && typeof x !== "number") ||
+          (x && x < -50) ||
+          x > 50 ||
+          (y && typeof y !== "number") ||
+          (y && y < -50) ||
+          y > 50 ||
+          (z && typeof z !== "number") ||
+          (z && z < -50) ||
+          z > 50
+        ) {
+          log.warn(
+            "Invalid position value in prop customSettings/cameraPosition. Values x, y, z should be type 'Number' between -50 and 50"
+          );
+          return false;
+        }
+        // Validating directionalLight values
+
+        // Declaring directionalLight/color value as THREE.Color to trigger warning if unknown.
+        new Color(value?.directionalLight?.color);
+        // Validating directionalLight/intensity value is type 'Number' and between 0 and 100
+        const directionalLightIntesity = value?.directionalLight?.intensity;
+
+        if (
+          (directionalLightIntesity &&
+            typeof directionalLightIntesity !== "number") ||
+          directionalLightIntesity < 0 ||
+          directionalLightIntesity > 100
+        ) {
+          log.warn(
+            "Invalid intensity value in prop customSettings/directionalLight. Should be type 'Number' between 0 and 100"
+          );
+          return false;
+        }
+
+        // Declaring ambientLight/color value as THREE.Color to trigger warning if unknown.
+        new Color(value?.ambientLight?.color);
+        // Validating ambientLight/intensity value is type 'Number' and between 0 and 100
+        const ambientLightIntensity = value?.ambientLight?.intensity;
+
+        if (
+          (ambientLightIntensity &&
+            typeof ambientLightIntensity !== "number") ||
+          ambientLightIntensity < 0 ||
+          ambientLightIntensity > 100
+        ) {
+          log.warn(
+            "Invalid intensity value in prop customSettings/ambientLight. Should be type 'Number' between 0 and 100"
+          );
+          return false;
+        }
+
+        // Validating enableOrbitControls value
+        const enableOrbitControls = value?.enableOrbitControls;
+
+        if (enableOrbitControls && typeof enableOrbitControls !== "boolean") {
+          log.warn(
+            "Invalid value in prop customSettings/enableOrbitControls. Should be type 'Boolean'"
+          );
+          return false;
+        }
+        // Validating autorotate value
+        const autoRotate = value?.autoRotate;
+
+        if (autoRotate && typeof autoRotate !== "boolean") {
+          log.warn(
+            "Invalid value in prop customSettings/autoRotate. Should be type 'Boolean'"
+          );
+          return false;
+        }
+
+        // Validating rotationSpeed value
+        const rotationSpeed = value?.rotationSpeed;
+
+        if (
+          (rotationSpeed && typeof rotationSpeed !== "number") ||
+          rotationSpeed < 0.1 ||
+          rotationSpeed > 100
+        ) {
+          log.warn("Invalid value in prop customSettings/rotationSpeed");
+          return false;
+        }
+
+        return true;
+      },
     },
   },
   data: () => ({
@@ -125,7 +237,7 @@ export default {
       return this.settings.rotationSpeed;
     },
     // Returns the current settings att any given moment.
-    // will be used when emitting or copying settings from gui
+    // Will be used when emitting or copying settings from gui
     currentSettings() {
       return {
         fov: this.camera.fov,
@@ -182,21 +294,20 @@ export default {
           this.scene.add(this.model);
           // Set loading to false
           this.loading = false;
-          console.log(`[view-3d-model] Model loaded`);
+          log.msg("Model loaded");
+
           // Create editor if useEditor is set to true
           this.useEditor && this.createEditor();
         },
         // Being executed when loading model
         () => {
-          console.log(`[view-3d-model] Loading model`);
+          log.msg("Loading model");
         },
         // Setting failedToLoad if error when loading
         (error) => {
           this.loading = false;
           this.failedToLoad = true;
-          console.log(
-            `[view-3d-model] An error occured when loading asset. ${error}`
-          );
+          log.error("An error occured when loading asset.", error);
         }
       );
     }
@@ -378,8 +489,8 @@ export default {
     },
 
     // Emitting current settings
-    handleEmit() {
-      this.$emit("clicked", this.currentSettings);
+    handleUseSettings() {
+      this.$emit("useSettings", this.currentSettings);
     },
 
     // Copies a ThreeDModel component with current settings to clipboard
@@ -398,12 +509,18 @@ export default {
       }
     },
 
+    // Resets all values in Editor
+    resetEditor() {
+      this.gui.reset();
+    },
+
     // Creating GUI to help adjusting the model
     createEditor() {
       this.gui = new GUI();
+      this.gui.title("Editor");
 
       // Camera folder
-      const cameraFolder = this.gui.addFolder("Camera");
+      const cameraFolder = this.gui.addFolder("Camera").close();
       // Fov
       cameraFolder
         .add(this.camera, "fov", 1, 180)
@@ -411,17 +528,19 @@ export default {
         .onChange(this.updateCamera);
 
       // Camera position folder
-      const cameraPositionFolder = cameraFolder.addFolder("Camera Position");
+      const cameraPositionFolder = cameraFolder
+        .addFolder("Camera Position")
+        .close();
 
       // Camera position x
-      cameraPositionFolder.add(this.camera.position, "x", -25, 25).listen();
+      cameraPositionFolder.add(this.camera.position, "x", -50, 50).listen();
       // Camera position y
-      cameraPositionFolder.add(this.camera.position, "y", -25, 25).listen();
+      cameraPositionFolder.add(this.camera.position, "y", -50, 50).listen();
       // Camera position z
-      cameraPositionFolder.add(this.camera.position, "z", -25, 25).listen();
+      cameraPositionFolder.add(this.camera.position, "z", -50, 50).listen();
 
       // Lights folder
-      const lightsFolder = this.gui.addFolder("Light");
+      const lightsFolder = this.gui.addFolder("Light").close();
 
       // Exposure
       lightsFolder
@@ -429,43 +548,49 @@ export default {
         .name("Exposure");
 
       // Directional light folder
-      const directionalLightFolder =
-        lightsFolder.addFolder("Directional Light");
+      const directionalLightFolder = lightsFolder
+        .addFolder("Directional Light")
+        .close();
       // Intensity
       directionalLightFolder.add(this.directionalLight, "intensity", 0, 100);
       // Color
       directionalLightFolder.addColor(this.directionalLight, "color");
 
       // Ambient light folder
-      const ambientLightFolder = lightsFolder.addFolder("Ambient Light");
+      const ambientLightFolder = lightsFolder
+        .addFolder("Ambient Light")
+        .close();
       // Intensity
       ambientLightFolder.add(this.ambientLight, "intensity", 0, 100);
       // Color
       ambientLightFolder.addColor(this.ambientLight, "color");
 
       // Orbit controls folder
-      const orbitControlsFolder = this.gui.addFolder("Orbit Controls");
+      const orbitControlsFolder = this.gui.addFolder("Orbit Controls").close();
 
       // Enable/Disable Orbit controls
       orbitControlsFolder
         .add(this.orbitControls, "enabled")
         .name("Enable Orbit Controls");
 
+      // Rotation folder
+      const rotationFolder = this.gui.addFolder("Rotation").close();
+
       // Enable/Disable Auto Rotate
-      orbitControlsFolder
-        .add(this.orbitControls, "autoRotate")
-        .name("Auto Rotate");
+      rotationFolder.add(this.orbitControls, "autoRotate").name("Auto Rotate");
 
       // Auto Rotation Speed
-      orbitControlsFolder
-        .add(this.orbitControls, "autoRotateSpeed", 0.5, 100)
+      rotationFolder
+        .add(this.orbitControls, "autoRotateSpeed", 0.1, 100)
         .name("Rotation Speed");
 
       // Buttons
-      // Emit button, runs method/handleEmit when clicked
-      this.gui.add(this, "handleEmit").name("Emit Settings");
+      // Reset button, runs
+      this.gui.add(this, "resetEditor").name("Reset");
       // Copy button, runs method/handleCopy when clicked
-      this.gui.add(this, "handleCopy").name("Copy Settings");
+      this.gui.add(this, "handleCopy").name("Copy as Component");
+      // Emit button, runs method/handleEmit when clicked
+      this.gui.add(this, "handleUseSettings").name("Use Settings");
     },
   },
 };

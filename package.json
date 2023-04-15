@@ -16,6 +16,9 @@
     "three.js",
     "gltf"
   ],
+  "files": [
+    "logStyle.js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
