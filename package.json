@@ -1,7 +1,7 @@
 {
   "name": "view-3d-model",
   "description": "A Vue.js component using three.js to view 3d-models.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Patrik Nyfeldt",
   "license": "ISC",
   "main": "src/index.js",
@@ -15,9 +15,6 @@
     "vue",
     "three.js",
     "gltf"
-  ],
-  "files": [
-    "logStyle.js"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
