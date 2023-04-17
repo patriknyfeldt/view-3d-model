@@ -17,7 +17,9 @@ When you have Vue project up and running, you can add your gltf(glb) file to the
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
-:note:
+**Note**
+
+**Warning**
 Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 application.
 :::
 
