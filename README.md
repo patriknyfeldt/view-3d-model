@@ -8,7 +8,7 @@ This can be achieved by importing the `ThreeDModel` component from the library, 
 
 ## <a id="get-started"></a> Prerequisites
 
-To use **_view-3d-model_** you will need a `Vue.js` (or a `Nuxt` project) project, and a `gltf(glb)` file.
+To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
 
 - If you are unfamiliar to the `Vue.js` javascript framework,
   [see this guide to create a Vue.js project](#create-vue-project)
@@ -78,7 +78,7 @@ Follow these steps to import and use the `ThreeDModel` component in your project
 
 In `App.js`, or any other component:
 
-Using `<script setup>`
+Using `Composition API (Vue 3)`:
 
 ```html
 <script setup>
@@ -86,16 +86,57 @@ Using `<script setup>`
 </script>
 
 <template>
-  // If using glb format
-  <ThreeDModel class="three-d-model" file-path="./models/your-model-name.glb" />
-  // If using gltf format
-  <ThreeDModel
-    class="three-d-model"
-    file-path="./models/your-model-name/scene.gltf"
-  />
+  <div>
+    // If using glb format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+    // If using gltf format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name/scene.gltf"
+    />
+  </div>
 </template>
 
-<style scoped>
+<style>
+  .three-d-model {
+      height: 300px,
+      width: 400px
+  }
+</style>
+```
+
+Using `Options API (Vue 2)`:
+
+```html
+<template>
+  <div>
+    // If using glb format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+    // If using gltf format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name/scene.gltf"
+    />
+  </div>
+</template>
+
+<script>
+  import ThreeDModel from "view-3d-model";
+  export default {
+    name: "App",
+    components: {
+      ThreeDModel,
+    },
+  };
+</script>
+
+<style>
   .three-d-model {
       height: 300px,
       width: 400px
