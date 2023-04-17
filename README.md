@@ -1,5 +1,7 @@
 # view-3d-model
 
+### Full documentation coming soon!
+
 **_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications.
 
 This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
@@ -119,6 +121,7 @@ Using `Options API (Vue 2)`:
       class="three-d-model"
       file-path="./models/your-model-name.glb"
     />
+
     // If using gltf format
     <ThreeDModel
       class="three-d-model"
