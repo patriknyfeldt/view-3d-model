@@ -20,7 +20,7 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
 
 ## Get Started
 
-When you have a `glb` or `gltf` file, and a `Vue.js` project up and running, follow these steps to start using **_view-3d-model_**:
+When you have a `glb` or `gltf` file, and a `Vue.js` project, follow these steps to start using **_view-3d-model_**:
 
 ### Create a folder for your models
 
