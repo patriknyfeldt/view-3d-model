@@ -105,8 +105,8 @@ Using `Composition API (Vue 3)`:
 
 <style>
   .three-d-model {
-      height: 100vh,
-      width: 100vw
+    height: 100vh;
+    width: 100vw;
   }
 </style>
 ```
@@ -142,8 +142,8 @@ Using `Options API (Vue 2)`:
 
 <style>
   .three-d-model {
-      height: 100vh,
-      width: 100vw
+    height: 100vh;
+    width: 100vw;
   }
 </style>
 ```
