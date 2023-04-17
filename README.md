@@ -72,11 +72,11 @@ your-project/
 npm install view-3d-model
 ```
 
-### Import the `ThreeDModel` component
+### Import and use the `ThreeDModel` component
 
 Follow these steps to import and use the `ThreeDModel` component in your project:
 
-In `App.js`, or any other component:
+In `App.js`, or any other component where you want to use `ThreeDModel`:
 
 Using `Composition API (Vue 3)`:
 
@@ -87,23 +87,18 @@ Using `Composition API (Vue 3)`:
 
 <template>
   <div>
-    // If using glb format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name.glb"
-    />
-    // If using gltf format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name/scene.gltf"
-    />
+    // If using glb format <ThreeDModel class="three-d-model"
+    file-path="./models/your-model-name.glb" // The file-path prop is required
+    /> // If using gltf format <ThreeDModel class="three-d-model"
+    file-path="./models/your-model-name/scene.gltf" // The file-path prop is
+    required />
   </div>
 </template>
 
 <style>
   .three-d-model {
-      height: 300px,
-      width: 400px
+      height: 100vh,
+      width: 100vw
   }
 </style>
 ```
@@ -113,16 +108,11 @@ Using `Options API (Vue 2)`:
 ```html
 <template>
   <div>
-    // If using glb format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name.glb"
-    />
-    // If using gltf format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name/scene.gltf"
-    />
+    // If using glb format <ThreeDModel class="three-d-model"
+    file-path="./models/your-model-name.glb" // The file-path prop is required
+    /> // If using gltf format <ThreeDModel class="three-d-model"
+    file-path="./models/your-model-name/scene.gltf" // The file-path prop is
+    required />
   </div>
 </template>
 
@@ -138,8 +128,8 @@ Using `Options API (Vue 2)`:
 
 <style>
   .three-d-model {
-      height: 300px,
-      width: 400px
+      height: 100vh,
+      width: 100vw
   }
 </style>
 ```
