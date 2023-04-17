@@ -87,11 +87,17 @@ Using `Composition API (Vue 3)`:
 
 <template>
   <div>
-    // If using glb format <ThreeDModel class="three-d-model"
-    file-path="./models/your-model-name.glb" // The file-path prop is required
-    /> // If using gltf format <ThreeDModel class="three-d-model"
-    file-path="./models/your-model-name/scene.gltf" // The file-path prop is
-    required />
+    // If using glb format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+
+    // If using gltf format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name/scene.gltf"
+    />
   </div>
 </template>
 
@@ -108,11 +114,16 @@ Using `Options API (Vue 2)`:
 ```html
 <template>
   <div>
-    // If using glb format <ThreeDModel class="three-d-model"
-    file-path="./models/your-model-name.glb" // The file-path prop is required
-    /> // If using gltf format <ThreeDModel class="three-d-model"
-    file-path="./models/your-model-name/scene.gltf" // The file-path prop is
-    required />
+    // If using glb format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+    // If using gltf format
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name/scene.gltf"
+    />
   </div>
 </template>
 
