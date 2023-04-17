@@ -1,25 +1,30 @@
 # view-3d-model
 
-**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications. This can be achieved by importing the `ThreeDModel` component, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
+**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications. This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
 
-## Prerequisites
+:information_source: The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.
+
+## <a id="get-started"></a> Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project, and a `gltf(glb)` file.
 
 - If you are unfamiliar to the `Vue.js` javascript framework,
   [see this guide to create a Vue.js project](#create-vue-project)
-- If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
-  Make sure that you choose the file format `gltf` or `glb`(`glb` formats is often to prefer because of its smaller size).
 
-## Steps
+- If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
+  Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size).
+
+## Get Started
+
+When you have a `glb` or `gltf` file, and a `Vue.js` project up and running, follow these steps to start using **_view-3d-model_**:
 
 ### Create a folder for your models
 
-- When you have a Vue project up and running, lets create a folder called `models` in the `public` folder.
+- First lets create a folder called `models` inside the `public` folder.
 
 ### Using `glb`
 
-- If you have a `glb` file you can simply add the file to the `models` folder as it is.
+- If you have a model of the format `glb`, you can simply add the file to the `models` folder as it is.
 
   Your project's file structure should look like this:
 
@@ -37,7 +42,7 @@ your-project/
 
 ### Using `gltf`
 
-- If you have a model of the format `gltf` you'll notice that it consists of a number of different items. Usually there is a `texture folder`, a `scene.bin` file, a `license.txt` file and a `scene.gltf` file. Create a folder in your `models` folder with the name of your model, and add all the files in the `gltf` to this folder.
+- If you have a model of the format `gltf`, you'll notice that it consists of a number of different items. Usually there is a `texture folder`, a `scene.bin` file, a `license.txt` file and a `scene.gltf` file. Create a folder in your `models` folder with the name of your model, and add all the content of the `gltf` to this folder.
 
 Your project should look like this:
 
@@ -73,16 +78,14 @@ To make `ThreeDModel` available globally through out your project, you can add t
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
-:information_source:
-
-- Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project.
-- For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)
+:information_source: Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project.
+:information_source: For detailed explanation on how things work, checkout [\*\*\_Vue.js\*\*\* official documentation](https://vuejs.org/guide/quick-start.html)
 
 ### To create a `Vue.js` application, follow these steps:
 
 - Open up an empty project in your code editor.
 - Make sure that you have `Node.js` version 16.0 or higher installed:
-  - If you havent alreday, [you can download `Node.js` here](https://nodejs.org/en), choose the `LTS`(long-term-support) version.
+  - If you havent alreday, you can [download **_Node.js_** here](https://nodejs.org/en), choose the `LTS`(long-term-support) version.
   - You can check your `Node.js` version by typing the following in the command line:
 
 ```
@@ -127,4 +130,94 @@ npm install
 npm run dev
 ```
 
-Now you should have your Vue project running and can continue [here to install **_view-3d-model_**]() in your project.
+Now you should have your Vue project running on http://localhost:5173/.
+
+If you want to change the port you can do so in the `package.json` file like so:
+
+```json title="package.json"
+{
+  "name": "your-project-name",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite --port 3000", // Here you can change to your preferred port
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.2.47"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.0.0",
+    "vite": "^4.1.4"
+  }
+}
+```
+
+Open the `App.vue` file inside the `src` folder and will see something like this:
+
+```html title="App.vue"
+<script setup>
+  import HelloWorld from "./components/HelloWorld.vue";
+  import TheWelcome from "./components/TheWelcome.vue";
+</script>
+
+<template>
+  <header>
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="./assets/logo.svg"
+      width="125"
+      height="125"
+    />
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+    </div>
+  </header>
+
+  <main>
+    <TheWelcome />
+  </main>
+</template>
+
+<style scoped>
+  header {
+    line-height: 1.5;
+  }
+  .logo {
+    display: block;
+    margin: 0 auto 2rem;
+  }
+  @media (min-width: 1024px) {
+    header {
+      display: flex;
+      place-items: center;
+      padding-right: calc(var(--section-gap) / 2);
+    }
+    .logo {
+      margin: 0 2rem 0 0;
+    }
+    header .wrapper {
+      display: flex;
+      place-items: flex-start;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+```
+
+As you can see there are some autogenerated files in the components folder, and in the `App.vue` file these components are imported and used to create a welcome page. Let's remove these files and clean up the `App.vue`, so that it looks like this:
+
+```html title="App.vue"
+<script setup></script>
+
+<template> </template>
+
+<style scoped></style>
+```
+
+In the `assets` folder there are two auto generated css files: `main.css` and `base.css`. These files are used to set a base styling to the application. You can remove or change the css in these files if you want to.
+
+Now you can continue [here to get started with **_view-3d-model_**](#get-started) in your project.
