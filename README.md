@@ -1,25 +1,27 @@
 # view-3d-model
 
-**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications. This can be achieved by importing the `ThreeDModel`, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
+**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications. This can be achieved by importing the `ThreeDModel` component, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
 
 ## Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project, and a `gltf(glb)` file.
 
 If you are unfamiliar to the `Vue.js` javascript framework,
-[see this guide to get you started with Vue.js](#create-vue-guide)
+[see this guide to create a Vue.js project](#create-vue-project)
 
 ## Steps
 
-## <a id="create-vue-guide"></a> Create a Vue.js App
+### Install **_view-3d-model_**
 
-:::note
+When you have Vue project up and running, you can add your gltf(glb) file to the public folder.
+
+## <a id="create-vue-project"></a> Create a Vue.js Project
+
+:note:
 Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 application.
 :::
 
-:::note
-Visit [Vue.js official documentation](https://vuejs.org/guide/quick-start.html) for more
-:::
+For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)
 
 ### To create a `Vue.js` application, follow these steps:
 
@@ -70,4 +72,15 @@ npm install
 npm run dev
 ```
 
-Now you should have your Vue project running! To
+Now you should have your Vue project running and can continue [here to install **_view-3d-model_**]() in your project.
+
+<style>
+.note {
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 0.5em;
+  background-color: #f0f8ff;
+  color: #333;
+  border: 1px solid #d0e3ff;
+}
+</style>
