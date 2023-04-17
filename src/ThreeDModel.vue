@@ -9,7 +9,6 @@
 </template>
 
 <script>
-// import * as THREE from "three";
 import {
   Scene as Scene,
   PerspectiveCamera as PerspectiveCamera,
