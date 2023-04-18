@@ -327,7 +327,7 @@ If you want to use the current settings there are two options:
 - Click the `Copy as Template` button, which will copy a `ThreeDModel` template to the clipboard that you can paste into your project.
 - Click the `Use Settings` button. This will `$emit` an event with the current settings wich makes it possible to listen to the event in your parent component like so:
 
-:information_source: Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`
+:information_source: **_Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`_**
 
 Using `composition API (Vue 3)`:
 
