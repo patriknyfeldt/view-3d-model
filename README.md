@@ -201,16 +201,20 @@ Now `ThreeDModel` is available globally throughout your `Nuxt` project without i
 <template>
   <div>
     // If using glb format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name.glb"
-    />
+    <client-only>
+      <ThreeDModel
+        class="three-d-model"
+        file-path="./models/your-model-name.glb"
+      />
+    </client-only>
 
     // If using gltf format
-    <ThreeDModel
-      class="three-d-model"
-      file-path="./models/your-model-name/scene.gltf"
-    />
+    <client-only>
+      <ThreeDModel
+        class="three-d-model"
+        file-path="./models/your-model-name/scene.gltf"
+      />
+    </client-only>
   </div>
 </template>
 <script>
