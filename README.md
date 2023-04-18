@@ -1,6 +1,6 @@
 # view-3d-model
 
-### Full documentation coming soon!
+### The work with the documentation is in progress
 
 **_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications.
 
