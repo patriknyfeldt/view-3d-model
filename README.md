@@ -15,10 +15,12 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
 - If you are unfamiliar to the `Vue.js` javascript framework,
   [see this guide to create a Vue.js project](#create-vue-project)
 
-- If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb by clicking here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb).
-
-There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
+- If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
 Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size).
+<!-- - If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb by clicking here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb). -->
+
+<!-- There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
+Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size). -->
 
 ## Get Started
 
