@@ -226,7 +226,7 @@ Now `ThreeDModel` is available globally throughout your `Nuxt` project without i
 </style>
 ```
 
-<!-- ## <a id="create-vue-project"></a> Create a Vue.js Project
+## <a id="create-vue-project"></a> Create a Vue.js Project
 
 :information_source: Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project.
 :information_source: For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)
@@ -375,4 +375,4 @@ These files are imported in the `App.vue` and used to create a welcome page.
 
 In the `assets` folder there are two auto generated css files: `main.css` and `base.css`. These files are used to set a base styling to the application. You can remove or change the css in these files if you want to.
 
-Now you can continue [here to get started with **_view-3d-model_**](#get-started) in your project. -->
+Now you can continue [here to get started with **_view-3d-model_**](#get-started) in your project.
