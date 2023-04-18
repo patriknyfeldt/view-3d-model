@@ -327,10 +327,10 @@ To make it easier to set the values of the `customSettings` prop, it's recommend
 
 If you want to use the current settings there are two options:
 
+:information_source: <b>Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`</b>
+
 - Click the `Copy as Template` button, which will copy a `ThreeDModel` template to the clipboard that you can paste into your project.
 - Click the `Use Settings` button. This will `$emit` an event with the current settings wich makes it possible to listen to the event in your parent component like so:
-
-:information_source: <b>Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`</b>
 
 Using `composition API (Vue 3)`:
 
