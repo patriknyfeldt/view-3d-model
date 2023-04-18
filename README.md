@@ -74,7 +74,7 @@ npm install view-3d-model
 
 ### Import and use the `ThreeDModel` component in Vue.js projects
 
-**_[Click here to see how to import and use `ThreeDModel` in Nuxt](#import-and-use-nuxt)_**
+**_[Click here to see how to import and use `ThreeDModel` in Nuxt project](#import-and-use-nuxt)_**
 
 Follow these steps to import and use the `ThreeDModel` component in your `Vue.js` project:
 
@@ -298,11 +298,7 @@ Without the `:` the value would be a `String` value 'true'.
 }
 ```
 
-You can pass the `customSettings` object to adjust one or more values like this example:
-
-Here we increase the `fov` value to 70, raises the intensity of the `directionalLight` to 1, and sets the `autoRotate` to true.
-
-To make it easier to set the values of the `customSettings` prop, it's recommended to use the editor by setting prop `useEditor` to `true`.
+You can pass the `customSettings` prop to adjust one or more values like in this example:
 
 ```html
 <ThreeDModel
@@ -319,6 +315,10 @@ To make it easier to set the values of the `customSettings` prop, it's recommend
 />
 ```
 
+Here we increase the `fov` value to 70, raises the intensity of the `directionalLight` to 1, and sets the `autoRotate` to true.
+
+To make it easier to set the values of the `customSettings` prop, it's recommended to use the editor by setting prop `useEditor` to `true`.
+
 - ### `useEditor` (`Boolean`)
   When we set the value of prop `useEditor` to `true`, an editor will be created. This editor lets you play around and adjust the settings of the camera, the lighting, orbit controls and rotation.
 
@@ -327,7 +327,7 @@ If you want to use the current settings there are two options:
 - Click the `Copy as Template` button, which will copy a `ThreeDModel` template to the clipboard that you can paste into your project.
 - Click the `Use Settings` button. This will `$emit` an event with the current settings wich makes it possible to listen to the event in your parent component like so:
 
-**_Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`_**
+:information_source: Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`
 
 Using `composition API (Vue 3)`:
 
