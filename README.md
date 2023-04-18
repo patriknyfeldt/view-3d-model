@@ -165,7 +165,7 @@ createApp(App)
 ```
 
 Now you can use `ThreeDModel` wherever you want in your `Vue.js` project without importing it in your components.
-Now let's [start using `ThreeDModel`](#using-three-d-model)
+**_[Click here to see how to start using `ThreeDModel`](#using-three-d-model)_**
 
 ### <a id="import-and-use-nuxt"></a> Import and use the `ThreeDModel` component in Nuxt.js projects
 
