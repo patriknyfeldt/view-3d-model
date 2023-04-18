@@ -489,7 +489,10 @@ export default {
 
     // Emitting current settings
     handleUseSettings() {
-      this.$emit("useSettings", this.currentSettings);
+      this.$emit("useSettings", {
+        filePath: this.filePath,
+        customSettings: this.currentSettings,
+      });
     },
 
     // Copies a ThreeDModel component with current settings to clipboard
@@ -587,7 +590,7 @@ export default {
       // Reset button, runs
       this.gui.add(this, "resetEditor").name("Reset");
       // Copy button, runs method/handleCopy when clicked
-      this.gui.add(this, "handleCopy").name("Copy as Component");
+      this.gui.add(this, "handleCopy").name("Copy as Template");
       // Emit button, runs method/handleEmit when clicked
       this.gui.add(this, "handleUseSettings").name("Use Settings");
     },

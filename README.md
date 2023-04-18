@@ -15,7 +15,7 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
 - If you are unfamiliar to the `Vue.js` javascript framework,
   [see this guide to create a Vue.js project](#create-vue-project)
 
-- If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb).
+- If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb by clicking here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb).
 
 There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
 Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size).
@@ -102,7 +102,8 @@ Using `Composition API (Vue 3)`:
     />
   </div>
 </template>
-
+// In this example we set the width and height to match the viewport. // You can
+change theese values as you like
 <style>
   .three-d-model {
     height: 100vh;
@@ -139,7 +140,8 @@ Using `Options API (Vue 2)`:
     },
   };
 </script>
-
+// In this example we set the width and height to match the viewport. // You can
+change theese values as you like
 <style>
   .three-d-model {
     height: 100vh;
@@ -222,6 +224,8 @@ Now `ThreeDModel` is available globally throughout your `Nuxt` project without i
     name: "nameOfYourComponent",
   };
 </script>
+// In this example we set the width and height to match the viewport. // You can
+change theese values as you like
 <style>
   .three-d-model {
     height: 100vh;
@@ -229,6 +233,153 @@ Now `ThreeDModel` is available globally throughout your `Nuxt` project without i
   }
 </style>
 ```
+
+## Using `ThreeDModel`
+
+By now you should have a 3d model rendered to the screen. Now let's take a look at how you can adjust the settings of the model via props.
+
+### Short on props in Vue.js
+
+- `ThreeDModel` has one required prop: `filePath`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that syntax.
+  (As in the examples above when we send the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
+
+- When we want to send a dynamic prop value, a javascript expression or a number rather than a string, we will use the `:` `v-bind` shortcut like so:
+
+```html
+<ThreeDModel
+  class="three-d-model"
+  file-path="./models/your-model-name.glb"
+  :use-editor="true"
+/>
+```
+
+Here we pass the prop `useEditor` using v-bind which means the value will be the `Boolean` value `true`.
+Without the `:` the value would be a `String` value 'true'.
+
+## Customize the `ThreeDModel` with props
+
+`ThreeDModel` takes three props:
+
+- ### `filePath (String)`
+  We've already used the required prop `filePath` which is the path that points at your 3d-model to be loaded.
+- ### `customSettings (Object)`:
+  An object that specifies settings to camera, lighting, orbit controls and rotation.
+  The default value looks like this:
+
+```js
+{
+ // Field of view, defines the extent of the scene that is seen on the display. Set in degrees, defaults to 50.
+   fov: 50,
+ // Camera position, will be used if x, y and z is provided. Else it will be ignored and default settings will be used.
+   cameraPosition: {
+     x: null,
+     y: null,
+     z: null,
+   },
+ // A light in a specific direction, used to simulate daylight
+ // Position is set to x:0, y:1, z:0 meaning that the light shines from the top down.
+ // Set intensity and color adjust the light
+   directionalLight: {
+     intensity: 0.5,
+     color: "#FFFFFF",
+   },
+ // Illuminates the scene equally, without direction, set intensity and color to adjust the light
+   ambientLight: {
+     intensity: 0.1,
+     color: "#FFFFFF",
+   },
+ // If set to true enables to interact with the model (zoom, grab, rotate), defaults to true
+ enableOrbitControls: true,
+ // If set to true rotates the model, defaults to false
+ autoRotate: false,
+ // The rotation speed if autoRotate is set to true, defaults to 2
+ rotationSpeed: 2,
+
+}
+```
+
+You can pass the `customSettings` object to adjust one or more values like this example:
+
+Here we increase the `fov` value to 70, raises the intensity of the `directionalLight` to 1, and sets the `autoRotate` to true.
+
+To make it easier to set the values of the `customSettings` prop, it's recommended to use the editor by setting prop `useEditor` to `true`.
+
+```html
+<ThreeDModel
+  class="three-d-model"
+  file-path="./models/your-model-name.glb"
+  :use-editor="true"
+  :custom-settings="{
+    fov: 70,
+    directionalLight: {
+      intensity: 1
+    },
+    autoRotate: true
+  }"
+/>
+```
+
+- ### `useEditor` (`Boolean`)
+  When we set the value of prop `useEditor` to `true`, an editor will be created. This editor lets you play around and adjust the settings of the camera, the lighting, orbit controls and rotation.
+
+If you want to use the current settings there are two options:
+
+- Click the `Copy as Template` button, which will copy a `ThreeDModel` template to the clipboard that you can paste into your project.
+- Click the `Use Settings` button. This will `$emit` an event with the current settings wich makes it possible to listen to the event in your parent component like so:
+
+**_Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`_**
+
+Using `composition API (Vue 3)`:
+
+```html
+<script setup>
+  ...
+    function handleSettings(settings) {
+      console.log('current settings: ', settings)
+    }
+  ...
+<script>
+
+<template>
+  ...
+    <ThreeDModel
+    class="three-d-model"
+    file-path="./models/your-model-name.glb"
+    :use-editor="true"
+    @use-settings="data => handleSettings(data)"
+    />
+  ...
+</template>
+```
+
+Using `Options API (Vue 2)`:
+
+```html
+<template>
+  ...
+  <ThreeDModel
+    class="three-d-model"
+    file-path="./models/your-model-name.glb"
+    :use-editor="true"
+    @use-settings="data => handleSettings(data)"
+  />
+  ...
+</template>
+
+<script>
+  export default {
+    ...
+      methods: {
+        handleSettings(settings) {
+          console.log('current settings: ', settings)
+        }
+      }
+  ...
+  };
+</script>
+```
+
+The function `handleSettings` will be called everytime you click the `useSettings` button in the editor. If you want save the settings in a database or similar, just put your logic for this in the handleSettings function.
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
