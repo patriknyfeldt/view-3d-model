@@ -614,7 +614,7 @@ export default {
   position: absolute;
   opacity: 1;
   border-radius: 50%;
-  animation: loading-spinner 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+  animation: loader 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
 .loader div:nth-child(2) {
   animation-delay: -0.4s;
@@ -623,7 +623,7 @@ export default {
   animation-delay: -0.8s;
 }
 
-@keyframes loading-spinner {
+@keyframes loader {
   0% {
     top: 36px;
     left: 36px;
