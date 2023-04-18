@@ -165,6 +165,7 @@ createApp(App)
 ```
 
 Now you can use `ThreeDModel` wherever you want in your `Vue.js` project without importing it in your components.
+Now let's [start using `ThreeDModel`](#using-three-d-model)
 
 ### <a id="import-and-use-nuxt"></a> Import and use the `ThreeDModel` component in Nuxt.js projects
 
@@ -236,14 +237,14 @@ change theese values as you like
 </style>
 ```
 
-## Using `ThreeDModel`
+## <a id="using-three-d-model"></a> Using `ThreeDModel`
 
 By now you should have a 3d model rendered to the screen. Now let's take a look at how you can adjust the settings of the model via props.
 
 ### Short on props in Vue.js
 
 - `ThreeDModel` has one required prop: `filePath`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that syntax.
-  (As in the examples above when we send the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
+  (As in the examples above when we passed the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
 
 - When we want to send a dynamic prop value, a javascript expression or a number rather than a string, we will use the `:` `v-bind` shortcut like so:
 
@@ -406,12 +407,14 @@ node --version
 npm init vue@latest
 ```
 
-This command will install and execute `create-vue`, which is the official Vue project scaffolding tool. You will be presented with prompts for several optional features. For now let's choose `No` on all options (you only need to fill in the `Project name`) and you should see something like this:
+This command will install and execute `create-vue`, which is the official Vue project scaffolding tool.
+
+You will be presented with prompts for several optional features. For now let's choose `No` on all options (you only need to fill in the `Project name`) and you should see something like this:
 
 ```
 Project name: <your-project-name>
 ✔ Project name: … <your-project-name>
-✔ Add TypeScript? … <div>No<div> / Yes
+✔ Add TypeScript? … No / Yes
 ✔ Add JSX Support? … No / Yes
 ✔ Add Vue Router for Single Page Application development? … No / Yes
 ✔ Add Pinia for state management? … No / Yes
