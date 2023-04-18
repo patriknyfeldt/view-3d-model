@@ -6,7 +6,7 @@
 
 This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
 
-:information_source: The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.
+:information_source: <b>The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.</b>
 
 ## <a id="get-started"></a> Prerequisites
 
@@ -28,7 +28,7 @@ When you have a `glb` or `gltf` file, and a `Vue.js` project (or a `Nuxt` projec
 
 - First lets create a folder called `models` inside the `public` folder.
 
-:information_source: If you are using `Nuxt` use the `static` folder instead of `public`.
+:information_source: <b>If you are using `Nuxt` use the `static` folder instead of `public`.</b>
 
 ### Using `glb`
 
@@ -327,7 +327,7 @@ If you want to use the current settings there are two options:
 - Click the `Copy as Template` button, which will copy a `ThreeDModel` template to the clipboard that you can paste into your project.
 - Click the `Use Settings` button. This will `$emit` an event with the current settings wich makes it possible to listen to the event in your parent component like so:
 
-:information_source: **_Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`_**
+:information_source: <b>Note that the prop 'useEditor' will not be included when using `Copy as Template` or `Use Settings`</b>
 
 Using `composition API (Vue 3)`:
 
@@ -383,8 +383,9 @@ The function `handleSettings` will be called everytime you click the `useSetting
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
-:information_source: Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project.
-:information_source: For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)
+:information_source: <b>Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project<b>
+
+:information_source: <b>For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)</b>
 
 ### To create a `Vue.js` application, follow these steps:
 
