@@ -1,3 +1,18 @@
+## [1.0.6] - 2023-04-18
+
+### Added
+
+- Documentation
+- 'filePath' to object in $emit event 'useSettings'
+
+### Fixed
+
+- Issue with loader animation
+
+### Changed
+
+- Name of editor button 'Copy as Component' to 'Copy as Template'
+
 ## [1.0.5] - 2023-04-17
 
 ### Added
