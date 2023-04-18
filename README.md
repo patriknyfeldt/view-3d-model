@@ -148,7 +148,9 @@ Using `Options API (Vue 2)`:
 </style>
 ```
 
-```js
+To make `ThreeDModel` available globally throughout your `Vue.js` project add this to `main.js`:
+
+```js title="src/main.js"
 import { createApp } from "vue";
 import App from "./App.vue";
 import ThreeDModel from "view-3d-model"; // Import ThreeDModel from view-3d-model
