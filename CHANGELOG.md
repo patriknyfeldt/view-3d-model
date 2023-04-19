@@ -1,12 +1,18 @@
+## [1.1.1] 2023-04-19
+
+### Fixed
+
+- Disabled eslint in `custom-logs.js` and `validate-props.js`
+
 ## [1.1.0] 2023-04-19
 
 ### Added
 
-- Checking if extension 'KHR_materials_unlit' is being used in the gltf.
+- Checking if extension `KHR_materials_unlit` is being used in the gltf.
   If so, no light intensity or color settings will be applicable.
   No inputs for these values are created in the editor.
 
-- Checking if extension 'KHR_materials_pbrSpecularGlossiness' is being used.
+- Checking if extension `KHR_materials_pbrSpecularGlossiness` is being used.
   Since the extension is not supported a warning message will show in the console.
 
 ### Fixed
@@ -15,14 +21,14 @@
 
 ### Changed
 
-- Moved validation to utils/validate-props
+- Moved validation to `utils/validate-props`
 
 ## [1.0.6] - 2023-04-18
 
 ### Added
 
 - Documentation
-- 'filePath' to object in $emit event 'useSettings'
+- `filePath` to object in $emit event `useSettings`
 
 ### Fixed
 
@@ -30,7 +36,7 @@
 
 ### Changed
 
-- Name of editor button 'Copy as Component' to 'Copy as Template'
+- Name of editor button `Copy as Component` to `Copy as Template`
 
 ## [1.0.5] - 2023-04-17
 

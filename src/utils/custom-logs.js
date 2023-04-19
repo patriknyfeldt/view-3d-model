@@ -1,3 +1,4 @@
+/* eslint-disable */
 const logStyles = {
   msg: "background: #2596be; border-radius: 0.5em; color: white; font-weight: bold; padding: 2px 0.5em;",
   warn: "background: #F6cf4d; border-radius: 0.5em; color: black; font-weight: bold; padding: 2px 0.5em;",

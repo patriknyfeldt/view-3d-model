@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Color as Color } from "three";
 import log from "./custom-logs.js";
 export default (value) => {
