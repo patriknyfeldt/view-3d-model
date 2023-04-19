@@ -197,6 +197,9 @@ export default {
     loading: true,
     // failedtoLoad is set to true if error when loading model
     failedToLoad: false,
+    // isUnlit will be set to true if extension 'KHR_materials_unlit' is used.
+    // If so, no color and intensity settings will be applicable in directionalLight or ambientLight.
+    isUnlit: false,
   }),
   computed: {
     // Returns The default settings from prop 'customSettings'. Will be used if no value provided in 'customSettings'
@@ -273,10 +276,17 @@ export default {
     this.animate();
     this.setEnvironment();
     this.createGltfLoader();
+
     if (this.filePath) {
       this.gltfLoader.load(
         `${this.filePath}`,
         (gltf) => {
+          const parser = gltf?.parser;
+          const extensions = parser?.extensions;
+          const extensionsUsed = parser?.json?.extensionsUsed;
+
+          // methods/checkExtensions
+          this.checkExtensions(extensions, extensionsUsed);
           // Setting this.model to gltf scene
           this.model = gltf.scene || gltf.scenes[0];
           // Get size and center from method/getSizeAndCenter
@@ -486,7 +496,36 @@ export default {
         };
       }
     },
+    checkExtensions(extensions, extensionsUsed) {
+      // Setting isUnlit to true if method/usingUnllit returns true
+      // If so, no lights will be applicable
+      this.isUnlit = this.usingUnlit(extensions, extensionsUsed);
+      this.isUnlit &&
+        log.msg(
+          "This model was created using extension 'KHR_materials_unlit', hence no lights will be applicable. Read more about 'KHR_materials_unlit: ' https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_unlit/README.md"
+        );
 
+      // Logs a warning if method/usingSpecGloss returns true
+      if (this.usingSpecGloss(extensions, extensionsUsed)) {
+        log.warn(
+          "This model was created using extension 'KHR_materials_pbrSpecularGlossiness'. This extension is not supported and hence the model might not appear correct. Read more about 'KHR_materials_pbrSpecularGlossiness': https://www.donmccurdy.com/2022/11/28/converting-gltf-pbr-materials-from-specgloss-to-metalrough/"
+        );
+      }
+    },
+    // Returns true or false depending on if extension 'KHR_materials_unlit' is used.
+    usingUnlit(extensions, extensionsUsed) {
+      return !!(
+        extensions?.KHR_materials_unlit ||
+        extensionsUsed?.includes("KHR_materials_unlit")
+      );
+    },
+    // Returns true or false depending on if extension 'KHR_materials_pbrSpecularGlossiness' is used.
+    usingSpecGloss(extensions, extensionsUsed) {
+      return !!(
+        extensions?.KHR_materials_pbrSpecularGlossiness ||
+        extensionsUsed?.includes("KHR_materials_pbrSpecularGlossiness")
+      );
+    },
     // Emitting current settings
     handleUseSettings() {
       this.$emit("useSettings", {
@@ -549,23 +588,26 @@ export default {
         .add(this.renderer, "toneMappingExposure", 0, 10)
         .name("Exposure");
 
-      // Directional light folder
-      const directionalLightFolder = lightsFolder
-        .addFolder("Directional Light")
-        .close();
-      // Intensity
-      directionalLightFolder.add(this.directionalLight, "intensity", 0, 100);
-      // Color
-      directionalLightFolder.addColor(this.directionalLight, "color");
+      // Creating controls for directionalLight and ambientLight if not using extension 'KHR_materials_unlit'
+      if (!this.isUnlit) {
+        // Directional light folder
+        const directionalLightFolder = lightsFolder
+          .addFolder("Directional Light")
+          .close();
+        // Intensity
+        directionalLightFolder.add(this.directionalLight, "intensity", 0, 100);
+        // Color
+        directionalLightFolder.addColor(this.directionalLight, "color");
 
-      // Ambient light folder
-      const ambientLightFolder = lightsFolder
-        .addFolder("Ambient Light")
-        .close();
-      // Intensity
-      ambientLightFolder.add(this.ambientLight, "intensity", 0, 100);
-      // Color
-      ambientLightFolder.addColor(this.ambientLight, "color");
+        // Ambient light folder
+        const ambientLightFolder = lightsFolder
+          .addFolder("Ambient Light")
+          .close();
+        // Intensity
+        ambientLightFolder.add(this.ambientLight, "intensity", 0, 100);
+        // Color
+        ambientLightFolder.addColor(this.ambientLight, "color");
+      }
 
       // Orbit controls folder
       const orbitControlsFolder = this.gui.addFolder("Orbit Controls").close();
