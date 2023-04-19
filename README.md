@@ -80,7 +80,7 @@ npm install view-3d-model
 
 Follow these steps to import and use the `ThreeDModel` component in your `Vue.js` project:
 
-In `App.js`, or any other component where you want to use `ThreeDModel`:
+In `App.vue`, or any other component where you want to use `ThreeDModel`:
 
 Using `Composition API (Vue 3)`:
 

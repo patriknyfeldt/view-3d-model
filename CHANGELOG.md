@@ -1,3 +1,22 @@
+## [1.1.0] 2023-04-19
+
+### Added
+
+- Checking if extension 'KHR_materials_unlit' is being used in the gltf.
+  If so, no light intensity or color settings will be applicable.
+  No inputs for these values are created in the editor.
+
+- Checking if extension 'KHR_materials_pbrSpecularGlossiness' is being used.
+  Since the extension is not supported a warning message will show in the console.
+
+### Fixed
+
+- Prevented customized console logs when running in 'production' mode.
+
+### Changed
+
+- Moved validation to utils/validate-props
+
 ## [1.0.6] - 2023-04-18
 
 ### Added
