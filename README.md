@@ -8,6 +8,33 @@ This can be achieved by importing the `ThreeDModel` component from the library, 
 
 :information_source: <b>The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.</b>
 
+```
+npm install view-3d-model
+```
+
+```html
+<script setup>
+  import ThreeDModel from "view-3d-model";
+</script>
+
+<template>
+  <ThreeDModel
+    class="three-d-model"
+    file-path="./models/your-model-name.glb"
+    :use-editor="true"
+    :custom-settings="{
+    autoRotate: true
+  }"
+  />
+</template>
+<style>
+  .three-d-model {
+    height: 100vh;
+    width: 100vw;
+  }
+</style>
+```
+
 ## <a id="get-started"></a> Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
@@ -244,7 +271,7 @@ By now you should have a 3d model rendered to the screen. Now let's take a look 
 ### Short on props in Vue.js
 
 - `ThreeDModel` takes three props: `filePath`, `useEditor` and `customSettings`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that convention.
-  (As in the examples above when we passed the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
+  (As in the examples above when we're passing the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
 
 - When we want to send a dynamic prop value, a javascript expression or a number rather than a string, we will use the `:` `v-bind` shortcut like so:
 
@@ -256,7 +283,7 @@ By now you should have a 3d model rendered to the screen. Now let's take a look 
 />
 ```
 
-Here we pass the prop `useEditor` using v-bind which means the value will be the `Boolean` value `true`.
+Here we're passing the prop `useEditor` using v-bind which means the value will be the `Boolean` value `true`.
 Without the `:` the value would be a `String` value 'true'.
 
 ## Customize the `ThreeDModel` with props
@@ -301,7 +328,9 @@ Without the `:` the value would be a `String` value 'true'.
 }
 ```
 
-You can pass the `customSettings` prop to adjust one or more values like in this example:
+You can pass the `customSettings` prop to adjust all or some of the values like in this example:
+
+:information_source: <b>Note that when passing values to the `cameraPosition` all of the properties `x`, `y` and `z` are required. If one or two of these values are left out, `ThreeDModel` will fall back to its default behaviour and set the camera position automatically</b>
 
 ```html
 <ThreeDModel
