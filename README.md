@@ -36,9 +36,36 @@ npm install view-3d-model
 </style>
 ```
 
+## Chapters
+
+This documentation includes the following chapters:
+
+- [Get Started](#get-started)
+  - [Prerequisites](#pre-requisites)
+  - [Start using **_view-3d-model_**](#start-using-view-3d-model)
+  - [Create a folder for your models](#create-folder-for-models)
+  - [Using `glb`](#using-glb)
+  - [Using `gltf`](#using-gltf)
+  - [Install **_view-3d-model_**](#install-view-3d-model)
+  - [Import and use the `ThreeDModel` in Vue.js projects](#import-and-use-vue)
+  - [Import and use the `ThreeDModel` in Nuxt.js projects](#import-and-use-nuxt)
+- [Using `ThreeDModel`](#using-three-d-model)
+  - [Short on props in Vue.js](#short-on-props)
+- [Customize `ThreeDModel` with props](#customize-three-d-model-with-props)
+  - [filePath](#file-path)
+  - [customSettings](#custom-settings)
+  - [useEditor](#use-editor)
+- [Extensions](#extensions)
+  - [Supported extensions](#supported-extensions)
+- [TroubleShooting](#trouble-shooting)
+  - [My 3d model doesn't show up](#model-not-showing-up)
+  - [I can't set the lights](#cant-set-lights)
+  - [My model is not looking correct](#not-looking-correct) -[Create a Vue.js Project](#create-vue-project)
+  - [Follow these steps to create a Vue.js application:](#steps-to-create-vue)
+
 ## <a id="get-started"></a> Get Started
 
-### Prerequisites
+### <a id="pre-requisites"></a> Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
 
@@ -48,17 +75,17 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
 - If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
   Make sure that you choose the file format `gltf` or `glb`.
 
-### Start using `ThreeDModel`
+### <a id="start-using-view-3d-model"></a> Start using **_view-3d-model_**
 
 When you have a `glb` or `gltf` file, and a `Vue.js` project (or a `Nuxt` project), follow these steps to start using **_view-3d-model_**:
 
-### Create a folder for your models
+### <a id="create-folder-for-models"></a> Create a folder for your models
 
 - Lets create a folder called `models` inside the `public` folder.
 
 :information_source: <b>If you are using `Nuxt` use the `static` folder instead of `public`.</b>
 
-### Using `glb`
+### <a id="using-glb"></a> Using `glb`
 
 - If you have a model of the format `glb`, you can simply add the file to the `models` folder as it is:
 
@@ -71,7 +98,7 @@ your-project/
 ...
 ```
 
-### Using `gltf`
+### <a id="using-gltf"></a> Using `gltf`
 
 - If you have a model of the format `gltf`, you'll notice that it consists of a number of different items. Usually there is a `texture folder` or a number of image files, a `bin` file, a `license.txt` file and a `gltf` file. Create a folder with the name of your model inside the `models` folder, and add all the contents of the `gltf` file to this folder.
 
@@ -92,7 +119,7 @@ your-project/
 
 ```
 
-### Install **_view-3d-model_**
+### <a id="install-view-3d-model"></a> Install **_view-3d-model_**
 
 - Install **_view-3d-model_** by typing the following in the command line:
 
@@ -100,7 +127,7 @@ your-project/
 npm install view-3d-model
 ```
 
-### Import and use the `ThreeDModel` component in Vue.js projects
+### <a id="import-and-use-vue"></a> Import and use the `ThreeDModel` component in Vue.js projects
 
 **_[Click here to see how to import and use `ThreeDModel` in Nuxt project](#import-and-use-nuxt)_**
 
@@ -279,7 +306,7 @@ change theese values as you like
 
 By now you should have a 3d model rendered to the screen. Now let's take a look at how you can adjust the settings of the model via props.
 
-### Short on props in Vue.js
+### <a id="short-on-props"></a> Short on props in Vue.js
 
 - `ThreeDModel` takes three props: `filePath`, `useEditor` and `customSettings`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that convention.
   (As in the examples above when we're passing the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
@@ -297,13 +324,13 @@ By now you should have a 3d model rendered to the screen. Now let's take a look 
 Here we're passing the prop `useEditor` using v-bind which means the value will be the `Boolean` value `true`.
 Without the `:` the value would be a `String` value 'true'.
 
-## Customize the `ThreeDModel` with props
+## <a id="customize-three-d-model-with-props"></a> Customize `ThreeDModel` with props
 
 `ThreeDModel` takes three props:
 
-- ### `filePath (String)`
+- ### <a id="file-path"></a> `filePath (String)`
   We've already used the required prop `filePath` which is the path that points at your 3d-model to be loaded.
-- ### `customSettings (Object)`:
+- ### <a id="custom-settings"></a> `customSettings (Object)`:
   An object that specifies settings to camera, lighting, orbit controls and rotation.
   The default values looks like this:
 
@@ -364,7 +391,7 @@ To make it easier to set the values of the `customSettings` prop, it's recommend
 
 :information_sourse: <b>Note that if the model you are using was created using the extension `KHR_materials_unlit`, no lights will be applicable, and thus no controls for `directionalLight` and `ambientLight` will show up in the editor. [read more about extensions here](#extensions) </b>
 
-- ### `useEditor` (`Boolean`)
+- ### <a id="use-editor"></a> `useEditor` (`Boolean`)
   When we set the value of prop `useEditor` to `true`, an editor will be created. This editor lets you play around and adjust the settings of the camera, the lighting, orbit controls and rotation.
 
 If you want to use the current settings there are two options:
@@ -438,7 +465,7 @@ Support for this extensions in `three.js` was dropped in november 2022, and whil
 
 Another common case which is not a problem but worth mentioning to avoid confusion, is when the gltf was created using the extension `KHR_materials_unlit`. When so, no lights will be applicable to the model and hence no controls for `ambientLight` or `directionalLight` will be created in the editor. [read more about the `KHR_materials_unlit extension` here](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_unlit/README.md).
 
-### Supported extensions are:
+### <a id="supported-extensions"></a> Supported extensions:
 
 - KHR_draco_mesh_compression
 - KHR_materials_clearcoat
@@ -463,11 +490,11 @@ Another common case which is not a problem but worth mentioning to avoid confusi
 
 [To read more about supported extensions in `three.js` `GLTFLoader`, click here](https://threejs.org/docs/#examples/en/loaders/GLTFLoader)
 
-## Troubleshooting
+## <a id="trouble-shooting"></a> Troubleshooting
 
 Common issues and solutions
 
-### My 3d model doesn't show up
+### <a id="model-not-showing-up"></a> My 3d model doesn't show up
 
 - Make sure your provided `filePath` is correct. If you're using `gltf` file format, your path shuld point at the gltf file. Also make sure that all the `gltf` resources such as textures etc is located in the same folder as the `gltf` file. If the file is not found you will get a message in the console.
 
@@ -476,11 +503,11 @@ Common issues and solutions
 
 :information_source: <b>Note that if you're setting height and width using relative lenght `%`, the parent element must have a height and width</b>
 
-### I can't set the ambientLight or directionalLight
+### <a id="cant-set-lights"></a> I can't set the lights
 
 - This probably means that the 3d model was created using the extension `KHR_materials_unlit`. This means no lights are applicable to the model and hence no controls are created for `ambientLight` or `directionalLight` in the editor. [Read more about extensions here](#extensions)
 
-### My model is not looking correct
+### <a id="not-looking-correct"></a> My model is not looking correct
 
 - This could be due to the `gltf` was created using an unsupported extension. Check the console for messages. [Read more about extensions here](#extensions)
 
@@ -490,7 +517,7 @@ Common issues and solutions
 
 :information_source: <b>For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)</b>
 
-### To create a `Vue.js` application, follow these steps:
+### <a id="steps-to-create-vue"></a> Follow these steps to create a Vue.js application:
 
 - Open up an empty project in your code editor.
 - Make sure that you have `Node.js` version 16.0 or higher installed:
