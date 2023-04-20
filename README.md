@@ -8,7 +8,12 @@ This can be achieved by importing the `ThreeDModel` component from the library, 
 
 :information_source: <b>The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.</b>
 
-## <a id="get-started"></a> Prerequisites
+<details>
+<a id="get-started"></a>
+
+<summary>  <b>Prerequisites</b> </summary>
+
+## Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
 
@@ -21,7 +26,7 @@ Make sure that you choose the file format `gltf` or `glb` (`glb` formats is ofte
 
 <!-- There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
 Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size). -->
-
+</details>
 ## Get Started
 
 When you have a `glb` or `gltf` file, and a `Vue.js` project (or a `Nuxt` project), follow these steps to start using **_view-3d-model_**:
