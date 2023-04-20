@@ -243,7 +243,7 @@ By now you should have a 3d model rendered to the screen. Now let's take a look 
 
 ### Short on props in Vue.js
 
-- `ThreeDModel` has one required prop: `filePath`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that syntax.
+- `ThreeDModel` takes three props: `filePath`, `useEditor` and `customSettings`. When we're passing props to a Vue component we typically do so in `kebab-case`, so in this guide we will be following that convention.
   (As in the examples above when we passed the `filePath` prop, we do so like this: `file-path="./models/your-model-name.glb"`).
 
 - When we want to send a dynamic prop value, a javascript expression or a number rather than a string, we will use the `:` `v-bind` shortcut like so:
