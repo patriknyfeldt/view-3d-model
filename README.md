@@ -7,8 +7,6 @@
 
 This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
 
-:information_source: <b>The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.</b>
-
 ```
 npm install view-3d-model
 ```
@@ -74,6 +72,8 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
 
 - If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
   Make sure that you choose the file format `gltf` or `glb`.
+
+:information_source: <b>The `glb` version usually is about 30% smaller than the `gltf` version and thus recommended to use if possible.</b>
 
 ### <a id="start-using-view-3d-model"></a> Start using **_view-3d-model_**
 
