@@ -39,17 +39,18 @@ npm install view-3d-model
 This documentation includes the following chapters:
 
   <details>
-  <summary>Get Started</summary>
+  <summary><a href="#get-started">Get Started</a></summary>
 
-- [Get Started](#get-started)
-  - [Prerequisites](#pre-requisites)
-  - [Start using **_view-3d-model_**](#start-using-view-3d-model)
-  - [Create a folder for your models](#create-folder-for-models)
-  - [Using `glb`](#using-glb)
-  - [Using `gltf`](#using-gltf)
-  - [Install **_view-3d-model_**](#install-view-3d-model)
-  - [Import and use the `ThreeDModel` in Vue.js projects](#import-and-use-vue)
-  - [Import and use the `ThreeDModel` in Nuxt.js projects](#import-and-use-nuxt)
+<!-- - [Get Started](#get-started) -->
+
+- [Prerequisites](#pre-requisites)
+- [Start using **_view-3d-model_**](#start-using-view-3d-model)
+- [Create a folder for your models](#create-folder-for-models)
+- [Using `glb`](#using-glb)
+- [Using `gltf`](#using-gltf)
+- [Install **_view-3d-model_**](#install-view-3d-model)
+- [Import and use the `ThreeDModel` in Vue.js projects](#import-and-use-vue)
+- [Import and use the `ThreeDModel` in Nuxt.js projects](#import-and-use-nuxt)
 
 </details>
 
