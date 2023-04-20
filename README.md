@@ -92,7 +92,8 @@ This documentation includes the following chapters:
 <details>
 <summary>Create a Vue.js Project</summary>
 
--[Create a Vue.js Project](#create-vue-project) - [Follow these steps to create a Vue.js application:](#steps-to-create-vue)
+- [Create a Vue.js Project](#create-vue-project)
+  - [Follow these steps to create a Vue.js application:](#steps-to-create-vue)
 
 </details>
 
