@@ -97,6 +97,16 @@ This documentation includes the following chapters:
 
 </details>
 
+<details>
+<summary>ThreeDModel</summary>
+
+- [ThreeDModel](#three-d-model)
+  - [Props](#props)
+  - [Events](#events)
+  - [Methods](#methods)
+
+</details>
+
 ## <a id="get-started"></a> Get Started
 
 ### <a id="pre-requisites"></a> Prerequisites
@@ -708,23 +718,23 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 [npm-downloads-per-year]: https://img.shields.io/npm/dy/view-3d-model.svg
 [npm-trends]: https://npmtrends.com/view-3d-model
 
-## ThreeDModel
+## <a id="three-d-model"></a> ThreeDModel
 
-### Props
+### <a id="props"></a> Props
 
-| Name           | Description                                                                      | Type      | Required | Default |
-| -------------- | -------------------------------------------------------------------------------- | --------- | -------- | ------- |
-| filePath       | Path to model                                                                    | `String`  | `true`   | -       |
-| useEditor      | If set to true, an editor will be created to help adjust settings                | `Boolean` | `false`  | false   |
-| customSettings | An object with settings to control camera, lighting, orbit controls and rotation | `Object`  | `false`  | -       |
+| Name           | Description                                                                      | Type      | Required | Default                                                                                                                                                                                                                     |
+| -------------- | -------------------------------------------------------------------------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| filePath       | Path to model                                                                    | `String`  | `true`   | -                                                                                                                                                                                                                           |
+| useEditor      | If set to true, an editor will be created to help adjust settings                | `Boolean` | `false`  | false                                                                                                                                                                                                                       |
+| customSettings | An object with settings to control camera, lighting, orbit controls and rotation | `Object`  | `false`  | {fov: 50, cameraPosition: {x: null,y: null,z: null}, directionalLight: {intensity: 0.5, color: "#FFFFFF"}, ambientLight: {intensity: 0.1,color: "#FFFFFF"}, enableOrbitControls: true, autoRotate: false, rotationSpeed: 2} |
 
-### Events
+### <a id="events"></a> Events
 
 | Event Name  | Description                                | Parameters                                          |
 | ----------- | ------------------------------------------ | --------------------------------------------------- |
 | useSettings | Fire when 'Use settings' button is clicked | The argument is an object with the current settings |
 
-### Methods
+### <a id="methods"></a> Methods
 
 | Method                  | Description                                                                                                      | Parameters                 |
 | ----------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------- |
