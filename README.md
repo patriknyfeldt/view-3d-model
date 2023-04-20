@@ -1,5 +1,8 @@
 # view-3d-model
 
+[![NPM Package][npm]][npm-url]
+[![NPM Downloads][npm-downloads]][npm-url]
+
 **_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `GLTFLoader` to allow users to display 3D models in their `Vue.js` applications.
 
 This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
@@ -306,13 +309,13 @@ Without the `:` the value would be a `String` value 'true'.
   We've already used the required prop `filePath` which is the path that points at your 3d-model to be loaded.
 - ### `customSettings (Object)`:
   An object that specifies settings to camera, lighting, orbit controls and rotation.
-  The default value looks like this:
+  The default values looks like this:
 
 ```js
 {
  // Field of view, defines the extent of the scene that is seen on the display. Set in degrees, defaults to 50.
    fov: 50,
- // Camera position, will be used if x, y and z is provided. Else it will be ignored and default settings will be used.
+ // Camera position, will be used if x, y and z is provided. Else it will be ignored and the camera position will be set automatically.
    cameraPosition: {
      x: null,
      y: null,
@@ -384,16 +387,16 @@ Using `composition API (Vue 3)`:
       console.log('current settings: ', settings)
     }
   ...
-<script>
+</script>
 
 <template>
   ...
-    <ThreeDModel
+  <ThreeDModel
     class="three-d-model"
     file-path="./models/your-model-name.glb"
     :use-editor="true"
     @use-settings="data => handleSettings(data)"
-    />
+  />
   ...
 </template>
 ```
@@ -422,7 +425,7 @@ Using `Options API (Vue 2)`:
       }
   ...
   };
-</script>
+</>
 ```
 
 The function `handleSettings` will be called everytime you click the `useSettings` button in the editor. If you want save the settings in a database or similar, just put your logic for this in the handleSettings function.
@@ -466,7 +469,7 @@ Another common case which is not a problem but worth mentioning to avoid confusi
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
-:information_source: <b>Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project<b>
+:information_source: <b>Since Vue 2 support will end on Dec 31 2023, this guide will show you how to create a Vue 3 project</b>
 
 :information_source: <b>For detailed explanation on how things work, checkout [Vue.js official documentation](https://vuejs.org/guide/quick-start.html)</b>
 
@@ -617,3 +620,7 @@ These files are imported in the `App.vue` and used to create a welcome page.
 In the `assets` folder there are two auto generated css files: `main.css` and `base.css`. These files are used to set a base styling to the application. You can remove or change the css in these files if you want to.
 
 Now you can continue [here to get started with **_view-3d-model_**](#get-started) in your project.
+
+[npm]: https://img.shields.io/npm/v/view-3d-model
+[npm-url]: https://www.npmjs.com/package/view-3d-model
+[npm-downloads]: https://img.shields.io/npm/dw/view-3d-model
