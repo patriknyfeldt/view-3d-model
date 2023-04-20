@@ -227,6 +227,18 @@ Vue.component("ThreeDModel", {
 ...
 ```
 
+- Also in `nuxt.config.js`, add **_view-3d-model_** to `build.transpile`:
+
+```js title="nuxt.config.js"
+...
+  build: {
+    ...
+      transpile: ['view-3d-model']
+    ...
+  }
+...
+```
+
 Now `ThreeDModel` is available globally throughout your `Nuxt` project without importing it in your components like so:
 
 ```html
