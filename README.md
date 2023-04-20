@@ -38,6 +38,9 @@ npm install view-3d-model
 
 This documentation includes the following chapters:
 
+  <details>
+  <summary>Get Started</summary>
+
 - [Get Started](#get-started)
   - [Prerequisites](#pre-requisites)
   - [Start using **_view-3d-model_**](#start-using-view-3d-model)
@@ -47,8 +50,18 @@ This documentation includes the following chapters:
   - [Install **_view-3d-model_**](#install-view-3d-model)
   - [Import and use the `ThreeDModel` in Vue.js projects](#import-and-use-vue)
   - [Import and use the `ThreeDModel` in Nuxt.js projects](#import-and-use-nuxt)
+
+</details>
+
+  <details>
+  <summary>Using ThreeDModel</summary>
+
 - [Using `ThreeDModel`](#using-three-d-model)
+
   - [Short on props in Vue.js](#short-on-props)
+
+  </details>
+
 - [Customize `ThreeDModel` with props](#customize-three-d-model-with-props)
   - [filePath](#file-path)
   - [customSettings](#custom-settings)
