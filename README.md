@@ -1,8 +1,6 @@
 # view-3d-model
 
-### The work with the documentation is in progress
-
-**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `gltfLoader` to allow users to display 3D models in their `Vue.js` applications.
+**_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `GLTFLoader` to allow users to display 3D models in their `Vue.js` applications.
 
 This can be achieved by importing the `ThreeDModel` component from the library, which supports models in `gltf` format, as well as the binary version of `gltf`, which is `glb`.
 
@@ -35,7 +33,9 @@ npm install view-3d-model
 </style>
 ```
 
-## <a id="get-started"></a> Prerequisites
+## Get Started
+
+### <a id="get-started"></a> Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
 
@@ -43,19 +43,19 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
   [see this guide to create a Vue.js project](#create-vue-project)
 
 - If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
-Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size).
+Make sure that you choose the file format `gltf` or `glb`.
 <!-- - If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb by clicking here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb). -->
 
 <!-- There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
-Make sure that you choose the file format `gltf` or `glb` (`glb` formats is often to prefer because of its smaller size). -->
+Make sure that you choose the file format `gltf` or `glb`.  -->
 
-## Get Started
+### Start using `ThreeDModel`
 
 When you have a `glb` or `gltf` file, and a `Vue.js` project (or a `Nuxt` project), follow these steps to start using **_view-3d-model_**:
 
 ### Create a folder for your models
 
-- First lets create a folder called `models` inside the `public` folder.
+- Lets create a folder called `models` inside the `public` folder.
 
 :information_source: <b>If you are using `Nuxt` use the `static` folder instead of `public`.</b>
 
@@ -74,7 +74,7 @@ your-project/
 
 ### Using `gltf`
 
-- If you have a model of the format `gltf`, you'll notice that it consists of a number of different items. Usually there is a `texture folder` or a number of image files, a `bin` file, a `license.txt` file and a `gltf` file. Create a folder in your `models` folder with the name of your model, and add all the content of the `gltf` to this folder.
+- If you have a model of the format `gltf`, you'll notice that it consists of a number of different items. Usually there is a `texture folder` or a number of image files, a `bin` file, a `license.txt` file and a `gltf` file. Create a folder with the name of your model inside the `models` folder, and add all the contents of the `gltf` file to this folder.
 
 Your project should look something like this:
 
@@ -351,6 +351,8 @@ Here we increase the `fov` value to 70, raises the intensity of the `directional
 
 To make it easier to set the values of the `customSettings` prop, it's recommended to use the editor by setting prop `useEditor` to `true`.
 
+:information_sourse: <b>Note that if the model you are using was created using the extension `KHR_materials_unlit`, no lights will be applicable, and thus no controls for `directionalLight` and `ambientLight` will show up in the editor. [read more about extensions here](#extensions) </b>
+
 - ### `useEditor` (`Boolean`)
   When we set the value of prop `useEditor` to `true`, an editor will be created. This editor lets you play around and adjust the settings of the camera, the lighting, orbit controls and rotation.
 
@@ -412,6 +414,43 @@ Using `Options API (Vue 2)`:
 ```
 
 The function `handleSettings` will be called everytime you click the `useSettings` button in the editor. If you want save the settings in a database or similar, just put your logic for this in the handleSettings function.
+
+## Extensions
+
+When creating a gltf file there are a number of extensions one can use.
+**_view-3d-model_** is using `three.js` to load and render 3d models, and thus supports the same extensions as the `GLTFLoader` in the `three.js` library.
+
+While the most common extensions out there are supported, sometimes trying to load a file with a an unknown extensions can lead to problems.
+
+One example of this worth mentioning is the deprecated extension `KHR_materials_pbrSpecularGlossiness)`.
+Support for this extensions in `three.js` was dropped in november 2022, and while most gltfs already use the workflow `metal/rough` instead there still are some downloads using the extension. To solve this you'll need to convert the file to `metal/rough`. If your model is using this extension you will get a console message with a link to [this article where you can read about how to convert `spec/gloss` to `metal/rough`](https://www.donmccurdy.com/2022/11/28/converting-gltf-pbr-materials-from-specgloss-to-metalrough/).
+
+Another common case which is not a problem but worth mentioning to avoid confusion, is when the gltf was created using the extension `KHR_materials_unlit`. When so, no lights will be applicable to the model and hence no controls for `ambientLight` or `directionalLight` will be created in the editor. [read more about the `KHR_materials_unlit extension` here](https://github.com/KhronosGroup/glTF/blob/main/extensions/2.0/Khronos/KHR_materials_unlit/README.md).
+
+### Supported extensions are:
+
+- KHR_draco_mesh_compression
+- KHR_materials_clearcoat
+- KHR_materials_ior
+- KHR_materials_specular
+- KHR_materials_transmission
+- KHR_materials_iridescence
+- KHR_materials_unlit
+- KHR_materials_volume
+- KHR_mesh_quantization
+- KHR_lights_punctual1
+- KHR_texture_basisu
+- KHR_texture_transform
+- EXT_texture_webp
+- EXT_meshopt_compression
+- EXT_mesh_gpu_instancing
+
+#### Supported by an external user plugin:
+
+- KHR_materials_variants2
+- MSFT_texture_dds
+
+[To read more about supported extensions in `three.js` `GLTFLoader`, click here](https://threejs.org/docs/#examples/en/loaders/GLTFLoader)
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
