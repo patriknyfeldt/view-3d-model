@@ -1,7 +1,7 @@
 # view-3d-model
 
 [![NPM Package][npm]][npm-url]
-[![NPM Downloads][npm-downloads]][npm-url]
+[![NPM Downloads][npm-downloads-per-week]][npm-trends]
 
 **_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `GLTFLoader` to allow users to display 3D models in their `Vue.js` applications.
 
@@ -36,9 +36,9 @@ npm install view-3d-model
 </style>
 ```
 
-## Get Started
+## <a id="get-started"></a> Get Started
 
-### <a id="get-started"></a> Prerequisites
+### Prerequisites
 
 To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project), and a `gltf(glb)` file.
 
@@ -46,11 +46,7 @@ To use **_view-3d-model_** you will need a `Vue.js` project (or a `Nuxt` project
   [see this guide to create a Vue.js project](#create-vue-project)
 
 - If you don't have a `gltf(glb)` file, there are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
-Make sure that you choose the file format `gltf` or `glb`.
-<!-- - If you don't have a `gltf(glb)` file, the fastest way to get you started is by downloading [this example glb by clicking here](https://github.com/patriknyfeldt/3d-models/raw/main/glb/nike.glb). -->
-
-<!-- There are plenty of free downloads on the web. For example you can visit [Sketchfab](https://sketchfab.com/features/free-3d-models), and download a 3d-model of your liking.
-Make sure that you choose the file format `gltf` or `glb`.  -->
+  Make sure that you choose the file format `gltf` or `glb`.
 
 ### Start using `ThreeDModel`
 
@@ -425,12 +421,12 @@ Using `Options API (Vue 2)`:
       }
   ...
   };
-</>
+</script>
 ```
 
 The function `handleSettings` will be called everytime you click the `useSettings` button in the editor. If you want save the settings in a database or similar, just put your logic for this in the handleSettings function.
 
-## Extensions
+## <a id="extensions"></a> Extensions
 
 When creating a gltf file there are a number of extensions one can use.
 **_view-3d-model_** is using `three.js` to load and render 3d models, and thus supports the same extensions as the `GLTFLoader` in the `three.js` library.
@@ -466,6 +462,27 @@ Another common case which is not a problem but worth mentioning to avoid confusi
 - MSFT_texture_dds
 
 [To read more about supported extensions in `three.js` `GLTFLoader`, click here](https://threejs.org/docs/#examples/en/loaders/GLTFLoader)
+
+## Troubleshooting
+
+Common issues and solutions
+
+### My 3d model doesn't show up
+
+- Make sure your provided `filePath` is correct. If you're using `gltf` file format, your path shuld point at the gltf file. Also make sure that all the `gltf` resources such as textures etc is located in the same folder as the `gltf` file. If the file is not found you will get a message in the console.
+
+- Make sure that the `ThreeDModel` has a width and height. Since the `ThreeDModel` adapts to the width and height given to it, it might not be visible if not having these values.
+  You can set these values by giving `ThreedModel` a class and style it with `CSS`.
+
+:information_source: <b>Note that if you're setting height and width using relative lenght `%`, the parent element must have a height and width</b>
+
+### I can't set the ambientLight or directionalLight
+
+- This probably means that the 3d model was created using the extension `KHR_materials_unlit`. This means no lights are applicable to the model and hence no controls are created for `ambientLight` or `directionalLight` in the editor. [Read more about extensions here](#extensions)
+
+### My model is not looking correct
+
+- This could be due to the `gltf` was created using an unsupported extension. Check the console for messages. [Read more about extensions here](#extensions)
 
 ## <a id="create-vue-project"></a> Create a Vue.js Project
 
@@ -623,4 +640,6 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 
 [npm]: https://img.shields.io/npm/v/view-3d-model
 [npm-url]: https://www.npmjs.com/package/view-3d-model
-[npm-downloads]: https://img.shields.io/npm/dw/view-3d-model
+[npm-downloads-per-week]: https://img.shields.io/npm/dw/view-3d-model
+[npm-downloads-per-month]: https://img.shields.io/npm/dm/view-3d-model.svg
+[npm-trends]: https://npmtrends.com/view-3d-model
