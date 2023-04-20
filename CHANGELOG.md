@@ -1,3 +1,9 @@
+## [1.1.3]
+
+### Added
+
+- Update docs
+
 ## [1.1.2]
 
 ### Added
