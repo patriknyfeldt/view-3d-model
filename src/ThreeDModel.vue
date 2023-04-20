@@ -428,7 +428,7 @@ export default {
       });
     },
 
-    // Copies a ThreeDModel component with current settings to clipboard
+    // Copies a ThreeDModel template with current settings to clipboard
     async handleCopy() {
       const settings = JSON.stringify(this.currentSettings).replaceAll('"', "");
       const component = `

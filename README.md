@@ -705,4 +705,47 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 [npm-url]: https://www.npmjs.com/package/view-3d-model
 [npm-downloads-per-week]: https://img.shields.io/npm/dw/view-3d-model
 [npm-downloads-per-month]: https://img.shields.io/npm/dm/view-3d-model.svg
+[npm-downloads-per-year]: https://img.shields.io/npm/dy/view-3d-model.svg
 [npm-trends]: https://npmtrends.com/view-3d-model
+
+## ThreeDModel
+
+### Props
+
+| Name           | Description                                                                      | Type      | Required | Default |
+| -------------- | -------------------------------------------------------------------------------- | --------- | -------- | ------- |
+| filePath       | Path to model                                                                    | `String`  | `true`   | -       |
+| useEditor      | If set to true, an editor will be created to help adjust settings                | `Boolean` | `false`  | false   |
+| customSettings | An object with settings to control camera, lighting, orbit controls and rotation | `Object`  | `false`  | -       |
+
+### Events
+
+| Event Name  | Description                                | Parameters                                          |
+| ----------- | ------------------------------------------ | --------------------------------------------------- |
+| useSettings | Fire when 'Use settings' button is clicked | The argument is an object with the current settings |
+
+### Methods
+
+| Method                  | Description                                                                                                      | Parameters                 |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| createGltfLoader        | Creating gltfLoader Creating dracoLoader which is used if gltf is compressed with draco                          | -                          |
+| initialize              | Creating scene, camera and renderer                                                                              | -                          |
+| getCenterAndSize        | Creating a bounding box from model and returns the size and center                                               | -                          |
+| setLights               | Adding lights to the scene Using values from props 'ambientLighting' and 'directionalLigthing'                   | -                          |
+| setEnvironment          | Adding an environment to the scene, to provide an even lighting to the scene                                     | -                          |
+| setControls             | Adding orbit controls to be able to interact with the model, enabled if enableOrbitControls is set to true       | size                       |
+| setRotation             | Adding rotation if autoRotate is set to true and rotation speed                                                  | -                          |
+| centerModel             | Centering the loaded model                                                                                       | -                          |
+| setCamera               | Setting the camera position                                                                                      | size, center               |
+| updateCamera            | Updating camera projectionMatrix                                                                                 | -                          |
+| animate                 | Adding animation loop                                                                                            | -                          |
+| render                  | Renders the scene and camera                                                                                     | -                          |
+| updateCameraAndRenderer | Updating camera aspect ratio, projectionMatrix and renderers size                                                | dimensions                 |
+| onWindowResize          | Updating container dimensions when resizing window                                                               | -                          |
+| checkExtensions         | Setting isUnlit to true if method/usingUnllit returns true. Logs a warning if method/usingSpecGloss returns true | extensions, extensionsUsed |
+| usingUnlit              | Returns true or false depending on if extension 'KHR_materials_unlit' is used.                                   | extensions, extensionsused |
+| usingSpecGloss          | Returns true or false depending on if extension 'KHR_materials_pbrSpecularGlossiness' is used.                   | extensions, extensionsused |
+| handleUseSettings       | Emitting current settings                                                                                        | -                          |
+| handleCopy              | Copies a ThreeDModel template with current settings to clipboard                                                 | -                          |
+| resetEditor             | Resets all values in Editor                                                                                      | -                          |
+| createEditor            | Creating GUI to help adjusting the model                                                                         | -                          |
