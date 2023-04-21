@@ -1,5 +1,6 @@
 <template>
   <div v-if="!failedToLoad" class="model-wrapper">
+    <div v-if="showCopyMsg" class="copy-msg">✔ Copied to clipboard</div>
     <div v-if="loading" class="loader">
       <div></div>
       <div></div>
@@ -94,6 +95,8 @@ export default {
     // isUnlit will be set to true if extension 'KHR_materials_unlit' is used.
     // If so, no color and intensity settings will be applicable in directionalLight or ambientLight.
     isUnlit: false,
+    // Is set true when clicking button 'copy as template'
+    showCopyMsg: false,
   }),
   computed: {
     // Returns The default settings from prop 'customSettings'. Will be used if no value provided in 'customSettings'
@@ -230,7 +233,6 @@ export default {
   methods: {
     // Creating gltfLoader
     // Creating dracoLoader which is used if gltf is compressed with draco
-
     createGltfLoader() {
       this.gltfLoader = new GLTFLoader();
       this.gltfLoader.setCrossOrigin("anonymous");
@@ -390,9 +392,9 @@ export default {
         };
       }
     },
+    // Setting isUnlit to true if method/usingUnllit returns true
+    // If so, no lights will be applicable
     checkExtensions(extensions, extensionsUsed) {
-      // Setting isUnlit to true if method/usingUnllit returns true
-      // If so, no lights will be applicable
       this.isUnlit = this.usingUnlit(extensions, extensionsUsed);
       this.isUnlit &&
         log.msg(
@@ -427,28 +429,33 @@ export default {
         customSettings: this.currentSettings,
       });
     },
-
     // Copies a ThreeDModel template with current settings to clipboard
     async handleCopy() {
       const settings = JSON.stringify(this.currentSettings).replaceAll('"', "");
+      const classList = this.$el.classList.value;
       const component = `
       <ThreeDModel
-        class="${this.$el.classList.value}"
-        file-path="${this.filePath}"
-        :custom-settings="${settings}"/>`;
+      class="${classList.replace("model-wrapper", "")}"
+      file-path="${this.filePath}"
+      :custom-settings="${settings}"/>`;
       try {
         await navigator.clipboard.writeText(component);
-        alert("Copied to clipboard");
+        this.triggerCopyMsg();
       } catch (err) {
         alert("failed to copy");
       }
     },
-
+    // Setting 'showCopyMsg' to true for one second
+    triggerCopyMsg() {
+      this.showCopyMsg = true;
+      setTimeout(() => {
+        this.showCopyMsg = false;
+      }, 1000);
+    },
     // Resets all values in Editor
     resetEditor() {
       this.gui.reset();
     },
-
     // Creating GUI to help adjusting the model
     createEditor() {
       this.gui = new GUI();
@@ -538,6 +545,18 @@ export default {
 .model-wrapper {
   position: relative;
 }
+
+.copy-msg {
+  z-index: 2000;
+  transform: translate(-10%, -50%);
+  top: 10%;
+  left: 50%;
+  position: absolute;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #6d6f71;
+}
+
 .loader {
   transform: translate(-50%, -50%);
   top: 50%;
@@ -555,9 +574,11 @@ export default {
   border-radius: 50%;
   animation: loader 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 .loader div:nth-child(2) {
   animation-delay: -0.4s;
 }
+
 .loader div:nth-child(3) {
   animation-delay: -0.8s;
 }

@@ -759,3 +759,4 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 | handleCopy              | Copies a ThreeDModel template with current settings to clipboard                                                 | -                          |
 | resetEditor             | Resets all values in Editor                                                                                      | -                          |
 | createEditor            | Creating GUI to help adjusting the model                                                                         | -                          |
+| triggerCopyMsg          | Setting 'showCopyMsg' to true for one second                                                                     | -                          |

@@ -1,4 +1,14 @@
-## [1.1.3]
+## [1.1.4]
+
+### Fixed
+
+- Prevent duplicated class names in copied template.
+
+### Changed
+
+- 'Copied to clipboard' msg instead of alert when clicking Copy as Template button.
+
+## [1.1.3] 2023-04-20
 
 ### Added
 
@@ -6,7 +16,7 @@
 
 ## [1.1.2]
 
-### Added
+### Added 2023-04-20
 
 - Update docs
 
