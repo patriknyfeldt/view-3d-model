@@ -1,4 +1,12 @@
-## [1.1.4]
+## [1.2.0] 2023-04-23
+
+### Added
+
+- `exposure` to `customSettings`
+
+- New chapter to docs: Control `ThreeDModel` with CSS
+
+## [1.1.4] 2023-04-21
 
 ### Fixed
 
