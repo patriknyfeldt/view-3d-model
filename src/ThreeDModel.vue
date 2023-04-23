@@ -56,6 +56,9 @@ export default {
           y: null,
           z: null,
         },
+        // Exposure level, defaults to 1
+        // type: Number, min: 0, max: 10
+        exposure: 1,
         // A light in a specific direction, used to simulate daylight
         // Position is set to x:0, y:1, z:0 meaning that the light shines from the top down.
         // Set intensity and color adjust the light
@@ -115,6 +118,10 @@ export default {
     cameraPosition() {
       return this.settings.cameraPosition;
     },
+    // Returns exposure value from 'settings'.
+    exposure() {
+      return this.settings.exposure;
+    },
     // Returns directionalLight object from 'settings'
     directionalLighting() {
       return this.settings.directionalLight;
@@ -145,6 +152,7 @@ export default {
           y: this.camera.position.y,
           z: this.camera.position.z,
         },
+        exposure: this.renderer.toneMappingExposure,
         directionalLight: {
           intensity: this.directionalLight.intensity,
           color: this.directionalLight.color,
@@ -262,6 +270,7 @@ export default {
       this.renderer.setSize(this.$el.clientWidth, this.$el.clientHeight);
       this.renderer.outputEncoding = sRGBEncoding;
       this.renderer.toneMapping = LinearToneMapping;
+      this.renderer.toneMappingExposure = this.exposure;
       this.$el.appendChild(this.renderer.domElement);
 
       window.addEventListener("resize", () => this.onWindowResize(), false);

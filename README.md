@@ -1,7 +1,7 @@
 # view-3d-model
 
 [![NPM Package][npm]][npm-url]
-[![NPM Downloads][npm-downloads-per-week]][npm-trends]
+[![NPM Downloads][npm-downloads-per-month]][npm-trends]
 
 **_view-3d-model_** is a `Vue.js` library that makes use of `three.js` and `GLTFLoader` to allow users to display 3D models in their `Vue.js` applications.
 
@@ -17,19 +17,27 @@ npm install view-3d-model
 </script>
 
 <template>
-  <ThreeDModel
-    class="three-d-model"
-    file-path="./models/your-model-name.glb"
-    :use-editor="true"
-    :custom-settings="{
-    autoRotate: true
-  }"
-  />
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+      :use-editor="true"
+      :custom-settings="{
+      autoRotate: true
+    }"
+    />
+  </div>
 </template>
+
 <style>
-  .three-d-model {
+  .wrapper {
     height: 100vh;
     width: 100vw;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
   }
 </style>
 ```
@@ -68,6 +76,16 @@ This documentation includes the following chapters:
   - [filePath](#file-path)
   - [customSettings](#custom-settings)
   - [useEditor](#use-editor)
+
+</details>
+
+<details>
+
+<summary>Control `ThreeDModel` with CSS</summary>
+
+- [Control `ThreeDModel` with CSS](#controll-three-d-model-with-css)
+  - [Set width and height](#set-width-and-height)
+  - [Set background](#set-background)
 
 </details>
 
@@ -185,30 +203,35 @@ Using `Composition API (Vue 3)`:
 
 ```html
 <script setup>
+  // import the ThreeDModel component from view-3d-model
   import ThreeDModel from "view-3d-model";
 </script>
 
 <template>
-  <div>
-    // If using glb format
+  <div class="wrapper">
+    <!-- If using glb format -->
     <ThreeDModel
       class="three-d-model"
       file-path="./models/your-model-name.glb"
     />
 
-    // If using gltf format
+    <!-- If using gltf format -->
     <ThreeDModel
       class="three-d-model"
       file-path="./models/your-model-name/scene.gltf"
     />
   </div>
 </template>
-// In this example we set the width and height to match the viewport. // You can
-change theese values as you like
+<!-- In this example we set the width and height to match the viewport. -->
 <style>
-  .three-d-model {
+  .wrapper {
     height: 100vh;
     width: 100vw;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
   }
 </style>
 ```
@@ -217,14 +240,14 @@ Using `Options API (Vue 2)`:
 
 ```html
 <template>
-  <div>
-    // If using glb format
+  <div class="wrapper">
+    <!-- If using glb format -->
     <ThreeDModel
       class="three-d-model"
       file-path="./models/your-model-name.glb"
     />
 
-    // If using gltf format
+    <!-- If using gltf format -->
     <ThreeDModel
       class="three-d-model"
       file-path="./models/your-model-name/scene.gltf"
@@ -233,20 +256,26 @@ Using `Options API (Vue 2)`:
 </template>
 
 <script>
+  // import the ThreeDModel component from view-3d-model
   import ThreeDModel from "view-3d-model";
   export default {
     name: "nameOfYourComponent",
+    // Declare ThreeDModel in component options
     components: {
       ThreeDModel,
     },
   };
 </script>
-// In this example we set the width and height to match the viewport. // You can
-change theese values as you like
+<!-- In this example we set the width and height to match the viewport. -->
 <style>
-  .three-d-model {
+  .wrapper {
     height: 100vh;
     width: 100vw;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
   }
 </style>
 ```
@@ -256,10 +285,12 @@ To make `ThreeDModel` available globally throughout your `Vue.js` project add th
 ```js title="src/main.js"
 import { createApp } from "vue";
 import App from "./App.vue";
-import ThreeDModel from "view-3d-model"; // Import ThreeDModel from view-3d-model
+// Import ThreeDModel from view-3d-model
+import ThreeDModel from "view-3d-model";
 
 createApp(App)
-  .component("ThreeDModel", ThreeDModel) // Register ThreeDModel as global component
+  // Register ThreeDModel as global component
+  .component("ThreeDModel", ThreeDModel)
   .mount("#app");
 ```
 
@@ -315,35 +346,42 @@ Now `ThreeDModel` is available globally throughout your `Nuxt` project without i
 
 ```html
 <template>
-  <div>
-    // If using glb format
+    <!-- If using glb format -->
     <client-only>
-      <ThreeDModel
-        class="three-d-model"
-        file-path="./models/your-model-name.glb"
-      />
+      <div class="wrapper">
+        <ThreeDModel
+          class="three-d-model"
+          file-path="./models/your-model-name.glb"
+        />
+      </div>
     </client-only>
 
-    // If using gltf format
+    <!-- If using gltf format -->
     <client-only>
-      <ThreeDModel
-        class="three-d-model"
-        file-path="./models/your-model-name/scene.gltf"
-      />
+      <div class="wrapper">
+        <ThreeDModel
+          class="three-d-model"
+          file-path="./models/your-model-name/scene.gltf"
+        />
     </client-only>
-  </div>
+
 </template>
+
 <script>
   export default {
     name: "nameOfYourComponent",
   };
 </script>
-// In this example we set the width and height to match the viewport. // You can
-change theese values as you like
+<!-- In this example we set the width and height to match the viewport. -->
 <style>
-  .three-d-model {
+  .wrapper {
     height: 100vh;
     width: 100vw;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
   }
 </style>
 ```
@@ -382,31 +420,50 @@ Without the `:` the value would be a `String` value 'true'.
 
 ```js
 {
- // Field of view, defines the extent of the scene that is seen on the display. Set in degrees, defaults to 50.
+//  Field of view, defines the extent of the scene that is seen on the display. Set in degrees, defaults to 50.
+//  type: Number, min: 1, max: 180
    fov: 50,
+
  // Camera position, will be used if x, y and z is provided. Else it will be ignored and the camera position will be set automatically.
+//  type: Number,  min: -50, max: 50
    cameraPosition: {
      x: null,
      y: null,
      z: null,
    },
+
+  // Exposure level, defaults to 1
+  // type: Number, min: 0, max: 10
+  exposure: 1,
+
  // A light in a specific direction, used to simulate daylight
  // Position is set to x:0, y:1, z:0 meaning that the light shines from the top down.
  // Set intensity and color adjust the light
    directionalLight: {
+    // type: Number, min: 0, max: 100
      intensity: 0.5,
+    // Recommended: Hex("FFFFFF") or Dec(16777215)
      color: "#FFFFFF",
    },
+
  // Illuminates the scene equally, without direction, set intensity and color to adjust the light
    ambientLight: {
+    // type: Number, min: 0, max: 100
      intensity: 0.1,
+    //Recommended: Hex("#FFFFFF") or Dec(16777215)
      color: "#FFFFFF",
    },
+
  // If set to true enables to interact with the model (zoom, grab, rotate), defaults to true
+ // type: Boolean
  enableOrbitControls: true,
+
  // If set to true rotates the model, defaults to false
+ // Type: Boolean
  autoRotate: false,
+
  // The rotation speed if autoRotate is set to true, defaults to 2
+ // type: Number, min: 0.1, max: 100
  rotationSpeed: 2,
 
 }
@@ -499,6 +556,152 @@ Using `Options API (Vue 2)`:
 
 The function `handleSettings` will be called everytime you click the `useSettings` button in the editor. If you want save the settings in a database or similar, just put your logic for this in the handleSettings function.
 
+## <a id="control-three-d-model-with-css"></a> Control `ThreeDModel` with CSS
+
+Here you can read about how to use CSS to control the 3d model
+
+### <a id="set-width-and-height">Set width and height</a>
+
+- In order to work correctly the `ThreeDmodel` component needs a width and height. If not, the width and height properties of the rendered canvas element that holds your model will be 0 and thus your model won't be visible. It's recommended to wrap the `ThreeDModel` in a div, and set the width and height of `ThreeDModel` relative to the wrapper div:
+
+```html
+<template>
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+  </div>
+</template>
+
+<!-- In this example we set the width and height to match the viewport. -->
+<style>
+  .wrapper {
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+```
+
+We can use the CSS property `aspect-ratio` to define the ratio between width and height of the wrapper:
+
+```html
+<template>
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+  </div>
+</template>
+<!-- In this example we set the width of the wrapper to 80vw and the aspect-ratio to 4/3. -->
+<style>
+  .wrapper {
+    width: 80vw;
+    aspect-ratio: 4/3;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+```
+
+If we want we can use media querys to set the size of the wrapper:
+
+```html
+<template>
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+  </div>
+</template>
+<!-- In this example we use a media query breakpoint to change the width on larger devices -->
+<style>
+  .wrapper {
+    width: 100vw;
+    aspect-ratio: 4 / 3;
+  }
+
+  @media screen and (min-width: 992px) {
+    .wrapper {
+      width: 50vw;
+    }
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+```
+
+By default `ThreeDModel` will center the model and set the the camera position. [Here you can read about how to adjust the camera position and other settings](#customize-three-d-model-with-props).
+
+### <a id="set-background"></a> Set background
+
+To set the background color you simply do so by setting it either to the `ThreeDModel` itself or it's parent like so:
+
+```html
+<template>
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+  </div>
+</template>
+<style>
+  .wrapper {
+    background-color: #29bdc1;
+    width: 80vw;
+    aspect-ratio: 4/3;
+  }
+
+  .three-d-model {
+    height: 100%;
+    width: 100%;
+  }
+</style>
+```
+
+Or you can use a background image like in this example:
+
+```html
+<template>
+  <div class="wrapper">
+    <ThreeDModel
+      class="three-d-model"
+      file-path="./models/your-model-name.glb"
+    />
+  </div>
+</template>
+
+<style>
+  .wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://images.pexels.com/photos/1242348/pexels-photo-1242348.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .three-d-model {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+```
+
 ## <a id="extensions"></a> Extensions
 
 When creating a gltf file there are a number of extensions one can use.
@@ -545,7 +748,7 @@ Common issues and solutions
 - Make sure your provided `filePath` is correct. If you're using `gltf` file format, your path shuld point at the gltf file. Also make sure that all the `gltf` resources such as textures etc is located in the same folder as the `gltf` file. If the file is not found you will get a message in the console.
 
 - Make sure that the `ThreeDModel` has a width and height. Since the `ThreeDModel` adapts to the width and height given to it, it might not be visible if not having these values.
-  You can set these values by giving `ThreedModel` a class and style it with `CSS`.
+  [Read more about how to control `ThreeDModel` with CSS here](#control-threedmodel-with-css)
 
 :information_source: <b>Note that if you're setting height and width using relative lenght `%`, the parent element must have a height and width</b>
 
@@ -571,13 +774,17 @@ Common issues and solutions
   - You can check your `Node.js` version by typing the following in the command line:
 
 ```
+
 node --version
+
 ```
 
 - When you've made sure that your version is 16.0 or above, type the following in the command line:
 
 ```
+
 npm init vue@latest
+
 ```
 
 This command will install and execute `create-vue`, which is the official Vue project scaffolding tool.
@@ -585,6 +792,7 @@ This command will install and execute `create-vue`, which is the official Vue pr
 You will be presented with prompts for several optional features. For now let's choose `No` on all options (you only need to fill in the `Project name`) and you should see something like this:
 
 ```
+
 Project name: <your-project-name>
 ✔ Project name: … <your-project-name>
 ✔ Add TypeScript? … No / Yes
@@ -598,20 +806,27 @@ Project name: <your-project-name>
 
 Scaffolding project in ./<your-project-name>...
 Done.
+
 ```
 
 - Once your project is created you run the following in the command line:
 
 ```
+
 cd <your-project-name>
+
 ```
 
 ```
+
 npm install
+
 ```
 
 ```
+
 npm run dev
+
 ```
 
 Now you should have your Vue project running on http://localhost:5173/.
@@ -711,22 +926,15 @@ In the `assets` folder there are two auto generated css files: `main.css` and `b
 
 Now you can continue [here to get started with **_view-3d-model_**](#get-started) in your project.
 
-[npm]: https://img.shields.io/npm/v/view-3d-model
-[npm-url]: https://www.npmjs.com/package/view-3d-model
-[npm-downloads-per-week]: https://img.shields.io/npm/dw/view-3d-model
-[npm-downloads-per-month]: https://img.shields.io/npm/dm/view-3d-model.svg
-[npm-downloads-per-year]: https://img.shields.io/npm/dy/view-3d-model.svg
-[npm-trends]: https://npmtrends.com/view-3d-model
-
 ## <a id="three-d-model"></a> ThreeDModel
 
 ### <a id="props"></a> Props
 
-| Name           | Description                                                                      | Type      | Required | Default                                                                                                                                                                                                                     |
-| -------------- | -------------------------------------------------------------------------------- | --------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| filePath       | Path to model                                                                    | `String`  | `true`   | -                                                                                                                                                                                                                           |
-| useEditor      | If set to true, an editor will be created to help adjust settings                | `Boolean` | `false`  | false                                                                                                                                                                                                                       |
-| customSettings | An object with settings to control camera, lighting, orbit controls and rotation | `Object`  | `false`  | {fov: 50, cameraPosition: {x: null,y: null,z: null}, directionalLight: {intensity: 0.5, color: "#FFFFFF"}, ambientLight: {intensity: 0.1,color: "#FFFFFF"}, enableOrbitControls: true, autoRotate: false, rotationSpeed: 2} |
+| Name           | Description                                                                      | Type      | Required | Default                                                                                                                                                                                                                                  |
+| -------------- | -------------------------------------------------------------------------------- | --------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| filePath       | Path to model                                                                    | `String`  | `true`   | -                                                                                                                                                                                                                                        |
+| useEditor      | If set to true, an editor will be created to help adjust settings                | `Boolean` | `false`  | false                                                                                                                                                                                                                                    |
+| customSettings | An object with settings to control camera, lighting, orbit controls and rotation | `Object`  | `false`  | {fov: 50, cameraPosition: {x: null,y: null,z: null}, exposure: 1, directionalLight: {intensity: 0.5, color: "#FFFFFF"}, ambientLight: {intensity: 0.1,color: "#FFFFFF"}, enableOrbitControls: true, autoRotate: false, rotationSpeed: 2} |
 
 ### <a id="events"></a> Events
 
@@ -760,3 +968,10 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 | resetEditor             | Resets all values in Editor                                                                                      | -                          |
 | createEditor            | Creating GUI to help adjusting the model                                                                         | -                          |
 | triggerCopyMsg          | Setting 'showCopyMsg' to true for one second                                                                     | -                          |
+
+[npm]: https://img.shields.io/npm/v/view-3d-model
+[npm-url]: https://www.npmjs.com/package/view-3d-model
+[npm-downloads-per-week]: https://img.shields.io/npm/dw/view-3d-model
+[npm-downloads-per-month]: https://img.shields.io/npm/dm/view-3d-model.svg
+[npm-downloads-per-year]: https://img.shields.io/npm/dy/view-3d-model.svg
+[npm-trends]: https://npmtrends.com/view-3d-model
