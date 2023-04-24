@@ -1,3 +1,13 @@
+## [1.2.1] 2023-04-24
+
+### Fixed
+
+- Removed unnecessary watcher for container dimensions. Call `updateCameraAndRenderer` directly from `onWindowResize` instead.
+
+### Changed
+
+- Moved styles to `style.css`
+
 ## [1.2.0] 2023-04-23
 
 ### Added

@@ -958,8 +958,8 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 | updateCamera            | Updating camera projectionMatrix                                                                                 | -                          |
 | animate                 | Adding animation loop                                                                                            | -                          |
 | render                  | Renders the scene and camera                                                                                     | -                          |
-| updateCameraAndRenderer | Updating camera aspect ratio, projectionMatrix and renderers size                                                | dimensions                 |
-| onWindowResize          | Updating container dimensions when resizing window                                                               | -                          |
+| updateCameraAndRenderer | Updating camera aspect ratio, projectionMatrix and renderers size                                                | -                          |
+| onWindowResize          | Runs updateCameraAndRenderer on window resize window                                                             | -                          |
 | checkExtensions         | Setting isUnlit to true if method/usingUnllit returns true. Logs a warning if method/usingSpecGloss returns true | extensions, extensionsUsed |
 | usingUnlit              | Returns true or false depending on if extension 'KHR_materials_unlit' is used.                                   | extensions, extensionsused |
 | usingSpecGloss          | Returns true or false depending on if extension 'KHR_materials_pbrSpecularGlossiness' is used.                   | extensions, extensionsused |

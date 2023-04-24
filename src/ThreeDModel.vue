@@ -167,14 +167,6 @@ export default {
       };
     },
   },
-  watch: {
-    // Watches container dimensions and calls 'updateCameraAndRenderer' whenever dimensions changes (changes when window resizes)
-    containerDimensions(val) {
-      if (val) {
-        this.updateCameraAndRenderer(val);
-      }
-    },
-  },
   mounted() {
     this.initialize();
     this.setLights();
@@ -384,22 +376,15 @@ export default {
     },
 
     // Updating camera aspect ratio, projectionMatrix and renderers size
-    updateCameraAndRenderer(dimensions) {
-      const { width, height } = dimensions;
-      this.camera.aspect = width / height;
+    updateCameraAndRenderer() {
+      this.camera.aspect = this.$el.clientWidth / this.$el.clientHeight;
       this.updateCamera();
-      this.renderer.setSize(width, height);
+      this.renderer.setSize(this.$el.clientWidth, this.$el.clientHeight);
     },
 
-    // Updating container dimensions when resizing window
+    // Runs updateCameraAndRenderer on window resize
     onWindowResize() {
-      const element = this.$el;
-      if (element.clientWidth !== 0 && element.clientHeight !== 0) {
-        this.containerDimensions = {
-          width: element.clientWidth,
-          height: element.clientHeight,
-        };
-      }
+      this.updateCameraAndRenderer();
     },
     // Setting isUnlit to true if method/usingUnllit returns true
     // If so, no lights will be applicable
@@ -549,77 +534,6 @@ export default {
   },
 };
 </script>
-
 <style>
-.model-wrapper {
-  position: relative;
-}
-
-.copy-msg {
-  z-index: 2000;
-  transform: translate(-10%, -50%);
-  top: 10%;
-  left: 50%;
-  position: absolute;
-  font-size: 1.2em;
-  font-weight: bold;
-  color: #6d6f71;
-}
-
-.loader {
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  width: 80px;
-  height: 80px;
-}
-
-.loader div {
-  background-color: white;
-  mix-blend-mode: difference;
-  position: absolute;
-  opacity: 1;
-  border-radius: 50%;
-  animation: loader 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-}
-
-.loader div:nth-child(2) {
-  animation-delay: -0.4s;
-}
-
-.loader div:nth-child(3) {
-  animation-delay: -0.8s;
-}
-
-@keyframes loader {
-  0% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  4.9% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 0;
-  }
-  5% {
-    top: 36px;
-    left: 36px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-  100% {
-    top: 0px;
-    left: 0px;
-    width: 72px;
-    height: 72px;
-    opacity: 0;
-  }
-}
+@import "./style.css";
 </style>
