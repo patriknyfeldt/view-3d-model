@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { Color as Color } from "three";
-import log from "./custom-logs.js";
+import log from "./view-3d-model-logs.js";
 export default (value) => {
   // validating fov value is type 'Number' and between 1 and 180
   const fov = value?.fov;

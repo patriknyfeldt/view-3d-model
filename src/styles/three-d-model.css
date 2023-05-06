@@ -1,0 +1,25 @@
+.three-d-model__wrapper {
+    position: relative;
+  }
+  
+  .three-d-model__loader {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    width: 80px;
+    height: 80px;
+  }
+  
+  .three-d-model__copy-msg {
+    z-index: 2000;
+    transform: translate(-10%, -50%);
+    top: 10%;
+    left: 50%;
+    position: absolute;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6d6f71;
+  }
+  
+    

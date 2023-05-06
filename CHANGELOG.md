@@ -1,3 +1,9 @@
+## [1.2.2] 2023-05-06
+
+### Changed
+
+- Split up code for readabilility
+
 ## [1.2.1] 2023-04-24
 
 ### Fixed

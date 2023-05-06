@@ -1,28 +1,4 @@
-.model-wrapper {
-    position: relative;
-  }
-  
-  .copy-msg {
-    z-index: 2000;
-    transform: translate(-10%, -50%);
-    top: 10%;
-    left: 50%;
-    position: absolute;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #6d6f71;
-  }
-  
-  .loader {
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    width: 80px;
-    height: 80px;
-  }
-  
-  .loader div {
+.loader div {
     background-color: white;
     mix-blend-mode: difference;
     position: absolute;
@@ -69,4 +45,3 @@
       opacity: 0;
     }
   }
-  

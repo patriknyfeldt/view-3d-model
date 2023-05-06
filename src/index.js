@@ -1,3 +1,3 @@
-import ThreeDModel from "./ThreeDModel.vue";
+import ThreeDModel from "./components/ThreeDModel.vue";
 
 export default ThreeDModel;
