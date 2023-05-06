@@ -1,3 +1,9 @@
+## [1.2.3]
+
+### Removed
+
+- Unused data property `containerDimensions`.
+
 ## [1.2.2] 2023-05-06
 
 ### Changed
@@ -6,7 +12,7 @@
 
 ## [1.2.1] 2023-04-24
 
-### Fixed
+### Removed
 
 - Removed unnecessary watcher for container dimensions. Call `updateCameraAndRenderer` directly from `onWindowResize` instead.
 

@@ -7,11 +7,6 @@ export default {
     near: 0.1,
     // Camera frustum far plane
     far: 1000,
-    // Container dimensions. Will be updated on window.resize
-    containerDimensions: {
-      width: 0,
-      height: 0,
-    },
     // loading is set to true until model is loaded
     loading: true,
     // failedtoLoad is set to true if error when loading model
