@@ -212,17 +212,45 @@ export default {
       this.updateCameraAndRenderer();
     },
 
+    // Returns the current settings att any given moment.
+    // Will be used when emitting or copying settings from editor
+    getCurrentSettings() {
+      return {
+        fov: this.camera.fov,
+        cameraPosition: {
+          x: this.camera.position.x,
+          y: this.camera.position.y,
+          z: this.camera.position.z,
+        },
+        exposure: this.renderer.toneMappingExposure,
+        directionalLight: {
+          intensity: this.directionalLight.intensity,
+          color: this.directionalLight.color,
+        },
+        ambientLight: {
+          intensity: this.ambientLight.intensity,
+          color: this.ambientLight.color,
+        },
+        enableOrbitControls: this.orbitControls.enabled,
+        autoRotate: this.orbitControls.autoRotate,
+        rotationSpeed: this.orbitControls.autoRotateSpeed,
+      };
+    },
+
     // Emitting current settings
     handleUseSettings() {
       this.$emit("useSettings", {
         filePath: this.filePath,
-        customSettings: this.currentSettings,
+        customSettings: this.getCurrentSettings(),
       });
     },
 
     // Copies a ThreeDModel template with current settings to clipboard
     async handleCopy() {
-      const settings = JSON.stringify(this.currentSettings).replaceAll('"', "");
+      const settings = JSON.stringify(this.getCurrentSettings()).replaceAll(
+        '"',
+        ""
+      );
       const classList = this.$el.classList.value;
       const component = `
       <ThreeDModel

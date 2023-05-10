@@ -43,29 +43,5 @@ export default {
     rotationSpeed() {
       return this.settings.rotationSpeed;
     },
-    // Returns the current settings att any given moment.
-    // Will be used when emitting or copying settings from gui
-    currentSettings() {
-      return {
-        fov: this.camera.fov,
-        cameraPosition: {
-          x: this.camera.position.x,
-          y: this.camera.position.y,
-          z: this.camera.position.z,
-        },
-        exposure: this.renderer.toneMappingExposure,
-        directionalLight: {
-          intensity: this.directionalLight.intensity,
-          color: this.directionalLight.color,
-        },
-        ambientLight: {
-          intensity: this.ambientLight.intensity,
-          color: this.ambientLight.color,
-        },
-        enableOrbitControls: this.orbitControls.enabled,
-        autoRotate: this.orbitControls.autoRotate,
-        rotationSpeed: this.orbitControls.autoRotateSpeed,
-      };
-    },
   },
 };
