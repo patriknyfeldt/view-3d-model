@@ -963,6 +963,7 @@ Now you can continue [here to get started with **_view-3d-model_**](#get-started
 | render                  | Renders the scene and camera                                                                                     | -                          |
 | updateCameraAndRenderer | Updating camera aspect ratio, projectionMatrix and renderers size                                                | -                          |
 | onWindowResize          | Runs updateCameraAndRenderer on window resize window                                                             | -                          |
+| getCurrentSettings      | Returns the current settings att any given moment. Will be used when emitting or copying settings from editor.   | -                          |
 | handleUseSettings       | Emitting current settings                                                                                        | -                          |
 | handleCopy              | Copies a ThreeDModel template with current settings to clipboard                                                 | -                          |
 | triggerCopyMsg          | Setting 'showCopyMsg' to true for one second                                                                     | -                          |

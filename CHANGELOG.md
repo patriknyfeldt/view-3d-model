@@ -1,4 +1,10 @@
-## [1.2.3]
+## [1.2.4] 2023-05-10
+
+### Fixed
+
+- Replaced computed property `currentSettings` with method `getCurrentsettings` to prevent reactivity bug.
+
+## [1.2.3] 2023-05-06
 
 ### Removed
 
