@@ -181,6 +181,8 @@ export default {
         this.renderer.domElement
       );
       this.orbitControls.enabled = this.enableOrbitControls;
+      this.orbitControls.enableDamping = true;
+      this.orbitControls.dampingFactor = 0.06;
       this.orbitControls.maxDistance = size * 10;
     },
 

@@ -1,3 +1,9 @@
+## [1.3.0] 2023-05-11
+
+### Added
+
+- Added damping to `orbitControls` to give a sense of weight when interacting with the model.
+
 ## [1.2.4] 2023-05-10
 
 ### Fixed
