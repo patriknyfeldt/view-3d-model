@@ -83,7 +83,7 @@ This documentation includes the following chapters:
 
 <summary>Control `ThreeDModel` with CSS</summary>
 
-- [Control `ThreeDModel` with CSS](#controll-three-d-model-with-css)
+- [Control `ThreeDModel` with CSS](#control-three-d-model-with-css)
   - [Set width and height](#set-width-and-height)
   - [Set background](#set-background)
 
