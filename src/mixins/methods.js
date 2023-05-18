@@ -20,6 +20,8 @@ import { OrbitControls as OrbitControls } from "three/examples/jsm/controls/Orbi
 import { RoomEnvironment as RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { GUI as GUI } from "lil-gui";
 
+import log from "../utils/view-3d-model-logs.js";
+
 export default {
   name: "methods",
   methods: {
